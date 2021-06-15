@@ -50,7 +50,7 @@ abstract class Manager
             echo "connection fail : " . $e ->getMessage();
         }
     }
-
+    //setter
     public function setServerName ($servername)
     {
         $this -> _serverName = $servername;

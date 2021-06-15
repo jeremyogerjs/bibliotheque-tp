@@ -12,34 +12,50 @@ function getAction ()
         return "index.php?action=update&target=emprunt";
     }
 }
-var_dump($results);
+// echo "<pre>";
+// var_dump($results);
+// echo "</pre>";
 ?>
-<form action="<?= getAction(); ?>" method="POST">
-    <div class="mb-3">
-        <label for="nom" class="form-label">nom</label>
-        <input type="text" class="form-control" id="nom" name="nom" aria-describedby="nomHelp">
-        <div id="nomHelp" class="form-text">indiquez le nom de l'adhérent.</div>
-    </div>
-    <div class="mb-3">
-        <label for="prenom" class="form-label">prenom</label>
-        <input type="text" class="form-control" id="prenom" name="prenom" aria-describedby="prenomHelp">
-        <div id="prenomHelp" class="form-text">indiquez le prenom de l'adhérent.</div>
-    </div>
-    <div class="mb-3">
-        <label for="nbLivreEmprunt" class="form-label">Nombre livre emprunter</label>
-        <input type="number" class="form-control" id="nbLivreEmprunt" name="nbLivreEmprunt" aria-describedby="nbLivreHelp">
-        <div id="nbLivreHelp" class="form-text">indiquez le nombre de livre emprunter.</div>
-    </div>
-    <div class="mb-3">
-    <select class="form-select" name="idRayon" aria-label="Default select example">
-        <option selected>Selctionner le rayon</option>
-        <?php foreach($results as $result) : ?>
-            <option value="<?= $result['id']; ?>"><?= $result['nom']; ?></option>
-        <?php endforeach; ?>
-    </select>
-    </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<div>
+<?php if(isset($results)) : ?>
+    <?php if($results) : ?>
+        <p>Ajout réussi !</p>
+        <?php else : ?>
+        <p>Ajout fail !</p>
+    <?php endif; ?>
+<?php endif; ?>
+
+</div>
+<div class="col-5 mx- auto">
+<h4><?= $_GET['action'] === "create" ? "Ajouter un emprunt" : "Modifier un emprunt" ?></h4>
+    <form action="<?= getAction(); ?>" method="POST">
+        <div class="mb-3">
+            <select class="form-select" name="idAdherent" aria-label="Default select example">
+                <option selected>Selctionner l'adherent</option>
+                <?php foreach($optionsAdherent as $result) : ?>
+                    <option value="<?= $result['id']; ?>"><?= $result['nom']; ?> <?= $result['prenom']; ?> Nb Emprunt Tot : <?= $result['nbLivreEmprunt']; ?> </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="mb-3">
+            <select class="form-select" name="idLivre" aria-label="Default select example">
+                <option selected>Selectionner les livres ( disponible ) </option>
+                <?php foreach($optionsLivre as $result) : ?>
+                    <option value="<?= $result['id']; ?>"><?= $result['titre']; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="dateEmprunt">Date d'emprunt</label>
+            <input type="date" class="form-control" name="dateEmprunt" id="dateEmprunt">
+        </div>
+        <div class="mb-3">
+            <label for="dateRetour">Date Retour ( optional )</label>
+            <input type="date" class="form-control" name="dateRetour" id="dateEmprunt">
+        </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 
 <?php $content = ob_get_clean(); ?>
 <?php require('./views/template.php'); ?>

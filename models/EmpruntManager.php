@@ -7,7 +7,6 @@ class Emprunt extends Manager
     public function getAllEmprunt()
     {
         $db = $this -> dbConnect();
-
         if($db)
         {
             $sql = "SELECT * FROM emprunt LEFT JOIN livre ON emprunt.idLivre = livre.id LEFT JOIN adherent ON emprunt.idAdherent = adherent.id";
@@ -23,6 +22,39 @@ class Emprunt extends Manager
         {
             http_response_code(500);
         }
+    }
+    public function getEmpruntAdherent ()
+    {
+        $db = $this -> dbConnect();
+        if($db)
+        {
+            $sql = "SELECT * FROM adherent";
+            $result = $db -> prepare($sql);
+    
+            $result -> execute();
+
+            $results = $result ->fetchAll();
+
+            return $results;
+        }
+    }
+    public function getEmpruntLivre ()
+    {
+        $db = $this -> dbConnect();
+        if($db)
+        {
+            $sql = "SELECT * FROM livre HAVING disponible = 1";
+
+            $result = $db -> prepare($sql);
+    
+            $result -> execute();
+
+            $results = $result ->fetchAll();
+
+            return $results;
+        }
+        
+
     }
     public function getSingleEmprunt ()
     {
@@ -85,9 +117,13 @@ class Emprunt extends Manager
         {
             $idLivre = htmlspecialchars($_POST['idLivre']);
             $idAdherent = htmlspecialchars($_POST['idAdherent']);
+            //format Date
+            $week = 3;
             $dateEmprunt = htmlspecialchars($_POST['dateEmprunt']);
-            $dateRetourMax = htmlspecialchars($_POST['dateRetourMax']);
-            $dateRetour = htmlspecialchars($_POST['dateRetour']);
+            $dateTime = DateTime::createFromFormat("Y-m-d",$dateEmprunt);
+            $dateTime -> add(DateInterval::createFromDateString($week .'weeks'));
+            $dateRetourMax = $dateTime -> format("Y-m-d");
+            $dateRetour = htmlspecialchars($_POST['dateRetour']) === NULL ? NULL : htmlspecialchars($_POST['dateRetour']);
 
             $sql = "INSERT INTO emprunt (idLivre,idAdherent,dateEmprunt,dateRetourMax,dateRetour)
                     VALUES (?, ?, ?, ?, ?)";

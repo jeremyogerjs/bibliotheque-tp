@@ -41,12 +41,14 @@ class EmpruntController
     {
         if(!empty($_POST))
         {
-            $this -> model -> createEmprunt();
-            header("location:index.ph?action=list&target=emprunt");
+            $results = $this -> model -> createEmprunt();
+            //header("location:index.ph?action=list&target=emprunt");
+            require('./views/forms/formEmprunt.php');
         }
         else
         {
-            $results = $this -> model ->getAllEmprunt();
+            $optionsAdherent = $this -> model -> getEmpruntAdherent();
+            $optionsLivre = $this -> model -> getEmpruntLivre();
             require('./views/forms/formEmprunt.php');
         }
     }
