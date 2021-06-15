@@ -1,17 +1,17 @@
 <?php
 
 
-class Manager
+abstract class Manager
 {
-    private $_serverName;
-    private $_userName;
-    private $_password;
-    private $_dbName;
+    protected $_serverName;
+    protected $_userName;
+    protected $_password;
+    protected $_dbName;
 
 
-    public function __construct($donnees = array())
+    public function __construct()
     {
-        $this -> hydrate($donnees);
+        $this -> hydrate($this -> getConfig());
     }
 
     public function hydrate ($donnees)
@@ -26,6 +26,12 @@ class Manager
             }
         }
     }
+    public function getConfig()
+    {
+        require('./db-config.php');
+
+        return $config;
+    }
 
     public function dbConnect ()
     {
@@ -34,6 +40,7 @@ class Manager
             $conn = new PDO("mysql:host=".$this -> _serverName .";dbname=".$this -> _dbName,$this -> _userName, $this -> _password);
     
             $conn -> setAttribute(PDO::ERRMODE_EXCEPTION,PDO::ATTR_ERRMODE);
+            $conn -> setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_ASSOC);
     
             echo "connected success";
             return $conn;

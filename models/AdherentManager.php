@@ -4,8 +4,7 @@ class Adherent extends Manager
 {
     public function getAllAdherent ()
     {
-        $db = $this ->dbConnect();
-
+        $db = $this -> dbConnect();
         if($db)
         {
             $sql = "SELECT * FROM adherent";
@@ -14,7 +13,7 @@ class Adherent extends Manager
 
             $result -> execute();
 
-            $results = $result -> fetchAll(PDO::FETCH_ASSOC);
+            $results = $result -> fetchAll();
 
             return $results;
         }
@@ -24,10 +23,10 @@ class Adherent extends Manager
         }
     }
 
-    public function getSingleAdherent ($id)
+    public function getSingleAdherent ()
     {
         $db = $this -> dbConnect();
-
+        $id = $_GET['id'];
         if($db)
         {
             $sql = "SELECT * FROM adherent WHERE id = $id";
@@ -35,7 +34,7 @@ class Adherent extends Manager
 
             $result -> execute();
 
-            $results = $result -> fetchAll(PDO::FETCH_ASSOC);
+            $results = $result -> fetch();
 
             return $results;
 
@@ -73,19 +72,17 @@ class Adherent extends Manager
     public function createAdherent ()
     {
         $db = $this -> dbConnect();
-
         if($db)
         {
             $nom = htmlspecialchars($_POST['nom']);
             $prenom = htmlspecialchars($_POST['prenom']);
-            $nbLivreEmprunt = htmlspecialchars($_POST['nbLivreEmprunt']);
 
-            $sql = "INSERT INTO adherent (nom,prenom,nbLivreEmprunt)
-                    VALUES (?, ?, ?)";
+            $sql = "INSERT INTO adherent (nom,prenom)
+                    VALUES (?, ?)";
 
             $result = $db -> prepare($sql);
 
-            $results = $result -> execute([$nom,$prenom,$nbLivreEmprunt]);
+            $results = $result -> execute([$nom,$prenom]);
 
             return $results;
         }
@@ -94,10 +91,10 @@ class Adherent extends Manager
             http_response_code(500);
         }
     }
-    public function deleteAdherent ($id)
+    public function deleteAdherent ()
     {
         $db = $this -> dbConnect();
-
+        $id = $_GET['id'];
         if($db)
         {
             $sql = "DELETE FROM adherent WHERE id = $id";
@@ -105,6 +102,10 @@ class Adherent extends Manager
             $db -> exec($sql);
 
             return "deleted success !";
+        }
+        else
+        {
+            http_response_code(500);
         }
     }
 }

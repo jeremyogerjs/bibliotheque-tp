@@ -5,25 +5,64 @@ require ('./models/LivreManager.php');
 
 class LivresController
 {
+    private $model;
+
+    public function __construct()
+    {
+        $this -> loadModel();
+    }
+    public function loadModel ()
+    {
+
+        $this -> model = new Livre();
+    }
     public function AllLivre ()
     {
-        require('./db-config.php');
-        $db = new Livre($config);
+        $results = $this -> model -> getLivre();
 
-        $results = $db -> getLivre();
-
-        require ('./views/liste.php');
+        require ('./views/listes/listeLivre.php');
     }
 
     public function deleteLivre ()
     {
-        require('./db-config.php');
-        $db = new Livre($config);
-
         if(isset($_GET['id']) && $_GET['id'] >=0 )
         {
-            $db -> deleteLivre($_GET['id']);
+            $this -> model -> deleteLivre();
+            header("location:index.php?action=list&target=livre"); 
         }
-
+    }
+    public function addLivre ()
+    {
+        if(!empty($_POST))
+        {
+            $results = $this -> model -> createLivre();
+            header("location:index.php?action=list&target=livre");
+        }
+        else
+        {
+            $results = $this -> model -> getLivreRayon();
+            require('./views/forms/formLivre.php');
+        }
+    }
+    public function updateLivre ()
+    {
+        if(!empty($_POST) && isset($_GET['id']) && $_GET['id'] >= 0)
+        {
+            $this -> model -> updateLivre();
+            header("location:index.php?action=list&target=livre");
+        }
+        else
+        {
+            $results = $this -> model -> getLivreRayon();
+            require('./views/forms/formLivre.php');
+        }
+    }
+    public function singleLivre ()
+    {
+        if(isset($_GET['id']) && $_GET['id'] >= 0)
+        {
+            $results = $this -> model -> getSingleLivre();
+            require('./views/singles/singleLivre.php');
+        }
     }
 }

@@ -34,16 +34,16 @@ if(isset($_GET['action']))
         switch ($_GET['target'])
         {
             case "livre" :
-                //Appeler le controller create
+                $livre -> addLivre();
                 break;
             case "rayon":
-                //Appeler le controller create
+                $rayon -> createRayon();
                 break;
             case "emprunt" :
                 //appeler le controller create
                 break;
             case "adherent" :
-                //appeler le controller create
+                $adherent -> addAdherent();
                 break;
         }
     }
@@ -52,10 +52,10 @@ if(isset($_GET['action']))
         switch ($_GET['target'])
         {
             case "livre":
-                //appeler l'update livre;
+                $livre -> updateLivre(); //marche pas
                 break;
             case "rayon" :
-                //appeler l'update rayon
+                $rayon -> updateRayon(); //marche pas
                 break;
             case "emprunt" :
                 //appeler l'update d'emprunt
@@ -70,16 +70,16 @@ if(isset($_GET['action']))
         switch($_GET['target'])
         {
             case "livre":
-                //appeler le delete du livre
+                $livre -> deleteLivre();
                 break;
             case "rayon" :
-                //appeler le delete du rayon
+                $rayon -> deleteRayon();
                 break;
             case "emprunt" :
                 //appeler le delete de l'emprunt
                 break;
             case "adherent" :
-                //appeler le delete de l'adherent
+                $adherent -> deleteAdherent();
                 break;
         }
     }
@@ -88,16 +88,16 @@ if(isset($_GET['action']))
         switch($_GET['target'])
         {
             case "livre" :
-                //appeler le getOne de livre
+                $livre -> singleLivre();
                 break;
             case "rayon" :
-                //appeler le getOne du rayon
+                $rayon -> getOne();
                 break;
             case "emprunt" :
-                //appeler le getONe de l'emprunt
+                $emprunt -> singleEmprunt(); // marche pas
                 break;
             case "adherent" :
-                //appeler le getOne de l'adherent
+                $adherent -> singleAdherent();
                 break;
         }
     }

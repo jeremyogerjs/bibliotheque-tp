@@ -9,22 +9,39 @@ class Livre extends Manager
 
         if($db)
         {
-            $sql = "SELECT * FROM livre";
+            $sql = "SELECT * FROM rayon RIGHT JOIN livre ON livre.idRayon = rayon.id";
 
             $result = $db ->prepare($sql);
 
             $result -> execute();
 
-            $results = $result ->fetchAll(PDO::FETCH_ASSOC);
+            $results = $result ->fetchAll();
 
             return $results;
         }
     }
 
-    public function deleteLivre ($id)
+    public function getLivreRayon ()
+    {
+        $db = $this -> dbConnect();
+        if($db)
+        {
+            $sql = "SELECT * FROM rayon LEFT JOIN livre ON rayon.id = livre.idRayon";
+
+            $result = $db ->prepare($sql);
+
+            $result -> execute();
+
+            $results = $result ->fetchAll();
+
+            return $results;
+        }
+    }
+
+    public function deleteLivre ()
     {
         $db = $this ->dbConnect();
-
+        $id = $_GET['id'];
         if($db)
         {
             $sql = "DELETE FROM livre WHERE id = $id";
@@ -38,19 +55,19 @@ class Livre extends Manager
         }
     }
 
-    public function getSingleLivre ($id)
+    public function getSingleLivre ()
     {
         $db = $this -> dbConnect();
-
+        $id = $_GET['id'];
         if($db)
         {
-            $sql = "SELECT * FROM livre WHERE id = $id";
+            $sql = "SELECT * FROM rayon LEFT JOIN livre ON rayon.id = livre.idRayon WHERE livre.id = $id";
 
             $result = $db -> prepare($sql);
 
             $result -> execute();
 
-            $results = $result ->fetchAll(PDO::FETCH_ASSOC);
+            $results = $result ->fetch();
 
             return $results;
         }
@@ -60,10 +77,10 @@ class Livre extends Manager
         }
     }
 
-    public function updateLivre ($id)
+    public function updateLivre ()
     {
         $db = $this -> dbConnect();
-
+        $id = $_GET['id'];
         if($db)
         {
             $titre = htmlspecialchars($_POST['titre']);
@@ -92,20 +109,27 @@ class Livre extends Manager
     public function createLivre ()
     {
         $db = $this -> dbConnect();
-
+        $titre = htmlspecialchars($_POST['titre']);
+        $auteur = htmlspecialchars($_POST['auteur']);
+        $disponible = true;
+        $idRayon = intval($_POST['idRayon']);
         if($db)
         {
-            $titre = htmlspecialchars($_POST['titre']);
-            $auteur = htmlspecialchars($_POST['auteur']);
-            $disponible = htmlspecialchars($_POST['disponible']);
-            $idRayon = htmlspecialchars($_POST['idRayon']);
-
-            $sql = "INSERT INTO livre (titre,auteur,disponible,idRayon)
-                    VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO livre (
+                            titre, 
+                            auteur, 
+                            disponible, 
+                            idRayon)
+                    VALUES (:titre, :auteur,:disponible,:idRayon)";
             
             $result = $db -> prepare($sql);
 
-            $result -> execute([$titre, $auteur, $disponible, $idRayon]);
+            $result ->bindParam(':titre',$titre,PDO::PARAM_STR);
+            $result ->bindParam(":auteur",$auteur,PDO::PARAM_STR);
+            $result ->bindParam(':disponible',$disponible,PDO::PARAM_BOOL);
+            $result ->bindParam(":idRayon",$idRayon,PDO::PARAM_INT);
+            $result -> execute();
+            return $result;
         }
     }
 }

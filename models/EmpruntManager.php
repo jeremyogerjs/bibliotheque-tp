@@ -10,12 +10,13 @@ class Emprunt extends Manager
 
         if($db)
         {
-            $sql = "SELECT * FROM emprunt";
+            $sql = "SELECT * FROM emprunt LEFT JOIN adherent ON emprunt.idAdherent = adherent.id
+                    LEFT JOIN livre ON livre.id = emprunt.idLivre";
             $result = $db ->prepare($sql);
 
             $result ->execute();
 
-            $results = $result -> fetchAll(PDO::FETCH_ASSOC);
+            $results = $result ->fetchAll();
 
             return $results;
         }
@@ -24,20 +25,21 @@ class Emprunt extends Manager
             http_response_code(500);
         }
     }
-    public function singleEmprunt ($id)
+    public function getSingleEmprunt ()
     {
         $db = $this -> dbConnect();
-
+        $id = $_GET['id'];
         if($db)
         {
-            $sql = "SELECT * FROM emprunt WHERE id = $id";
+            $sql = "SELECT * FROM emprunt LEFT JOIN adherent ON emprunt.idAdherent = adherent.id
+            LEFT JOIN livre ON emprunt.idLivre = livre.id WHERE idLivre = $id";
 
             $result = $db -> prepare($sql);
 
             $result -> execute();
 
-            $results = $result -> fetchAll(PDO::FETCH_ASSOC);
-
+            $results = $result -> fetch();
+            
             return $results;
         }
         else
@@ -45,10 +47,10 @@ class Emprunt extends Manager
             http_response_code(500);
         }
     }
-    public function updateEmprunt ($id)
+    public function updateEmprunt ()
     {
         $db = $this -> dbConnect();
-
+        $id = $_GET['id'];
         $idLivre = htmlspecialchars($_POST['idLivre']);
         $idAdherent = htmlspecialchars($_POST['idAdherent']);
         $dateEmprunt = htmlspecialchars($_POST['dateEmprunt']);

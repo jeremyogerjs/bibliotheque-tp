@@ -15,7 +15,7 @@ class Rayon extends Manager
 
             $result -> execute();
 
-            $results = $result -> fetchAll(PDO::FETCH_ASSOC);
+            $results = $result -> fetchAll();
 
             return $results;
         }
@@ -24,19 +24,19 @@ class Rayon extends Manager
             http_response_code(500);
         }
     }
-    public function getSingleRayon ($id)
+    public function getSingleRayon ()
     {
         $db = $this -> dbConnect();
-
+        $id = $_GET['id'];
         if($db)
         {
-            $sql = "SELECT * FROM rayon WHERE id = $id";
+            $sql = "SELECT (nom) FROM rayon WHERE id = $id";
 
             $result = $db -> prepare($sql);
 
             $result -> execute();
 
-            $results = $result -> fetchAll(PDO::FETCH_ASSOC);
+            $results = $result -> fetch();
 
             return $results;
         }
@@ -45,10 +45,10 @@ class Rayon extends Manager
             http_response_code(500);
         }
     }
-    public function updateRayon ($id)
+    public function updateRayon ()
     {
         $db = $this -> dbConnect();
-
+        $id = $_GET['id'];
         if($db)
         {
             $nom = htmlspecialchars($_POST['nom']);
@@ -81,10 +81,10 @@ class Rayon extends Manager
             return $results;
         }
     }
-    public function deleteRayon ($id)
+    public function deleteRayon ()
     {
         $db = $this -> dbConnect();
-
+        $id = $_GET['id'];
         if($db)
         {
             $sql = "DELETE FROM rayon WHERE id = $id";

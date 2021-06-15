@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <title>Document</title>
 </head>
@@ -22,7 +23,7 @@
                             Catalogue
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Ajouter un livre</a></li>
+                            <li><a class="dropdown-item" href="index.php?action=create&target=livre">Ajouter un livre</a></li>
                             <li><a class="dropdown-item" href="index.php?action=list&target=livre">Liste catalogue</a></li>
                         </ul>
                     </li>
@@ -31,7 +32,7 @@
                             Rayon
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Ajouter un rayon</a></li>
+                            <li><a class="dropdown-item" href="index.php?action=create&target=rayon">Ajouter un rayon</a></li>
                             <li><a class="dropdown-item" href="index.php?action=list&target=rayon">Liste rayon</a></li>
                         </ul>
                     </li>
@@ -40,7 +41,7 @@
                             Emprunt
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Ajouter un Emprunt</a></li>
+                            <li><a class="dropdown-item" href="index.php?action=create&target=emprunt">Ajouter un Emprunt</a></li>
                             <li><a class="dropdown-item" href="index.php?action=list&target=emprunt">Liste Emprunt</a></li>
                         </ul>
                     </li>
@@ -49,7 +50,7 @@
                             Adhérent
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Ajouter un Adhérent</a></li>
+                            <li><a class="dropdown-item" href="index.php?action=create&target=adherent">Ajouter un Adhérent</a></li>
                             <li><a class="dropdown-item" href="index.php?action=list&target=adherent">Liste Adhérents</a></li>
                         </ul>
                     </li>
