@@ -12,7 +12,8 @@ function getAction ()
         return "index.php?action=update&target=emprunt";
     }
 }
-var_dump($results); ?>
+var_dump($results);
+?>
 <form action="<?= getAction(); ?>" method="POST">
     <div class="mb-3">
         <label for="nom" class="form-label">nom</label>

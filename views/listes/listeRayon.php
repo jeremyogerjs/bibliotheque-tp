@@ -1,6 +1,7 @@
 <?php ob_start(); ?>
+<div class="col-3 mx-auto">
 
-  <table class="table">
+  <table class="table table-striped table-hover"> 
     <thead>
       <tr>
         <th scope="col">Nom</th>
@@ -13,10 +14,10 @@
       <?php foreach($results as $result) : ?>
         <tr>
             <td><?= $result['nom']; ?></td>
-            <td class="actions">
-              <a href="index.php?action=single&target=<?= $_GET['target']; ?>&id=<?= $result['id'] ?>" class="edit"> <i class="fas fa-user fa-xs"></i> </a>
-              <a href="index.php?action=update&target=<?= $_GET['target']; ?>&id=<?= $result['id'] ?>" class="edit"><i class="fas fa-pen fa-xs"></i></a>
-              <a href="index.php?action=delete&target=<?= $_GET['target']; ?>&id=<?= $result['id'] ?>" class="trash"><i class="fas fa-trash fa-xs"></i></a>
+            <td class="">
+              <a href="index.php?action=single&target=<?= $_GET['target']; ?>&id=<?= $result['id'] ?>" class="edit"> <i class="fas fa-user fa"></i> </a>
+              <a href="index.php?action=update&target=<?= $_GET['target']; ?>&id=<?= $result['id'] ?>" class="edit mx-2"><i class="fas fa-pen fa"></i></a>
+              <a href="index.php?action=delete&target=<?= $_GET['target']; ?>&id=<?= $result['id'] ?>" class="trash"><i class="fas fa-trash fa"></i></a>
             </td>
         </tr>
       <?php endforeach; ?>
@@ -25,6 +26,10 @@
     <?php endif; ?>
     </tbody>
   </table>
+
+
+</div>
+
 
 
 

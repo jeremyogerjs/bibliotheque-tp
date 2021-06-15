@@ -45,21 +45,21 @@ class Adherent extends Manager
         }
     }
 
-    public function updateAdherent ($id)
+    public function updateAdherent ()
     {
         $db = $this -> dbConnect();
-
+        $id = $_GET['id'];
         if($db)
         {
             $nom = htmlspecialchars($_POST['nom']);
             $prenom = htmlspecialchars($_POST['prenom']);
             $nbLivreEmprunt = htmlspecialchars($_POST['nbLivreEmprunt']);
 
-            $sql = "UPDATE adherent SET (nom, prenom, nbLivreEmprunt)
-                    VALUES (?, ?, ?) WHERE id = $id";
+            $sql = "UPDATE adherent SET nom = ? , prenom = ?, nbLivreEmprunt = ?)
+                    WHERE id = ?";
             $result = $db ->prepare($sql);
 
-            $results = $result ->execute([$nom,$prenom,$nbLivreEmprunt]);
+            $results = $result ->execute([$nom,$prenom,$nbLivreEmprunt,$id]);
 
             return $results;
         }

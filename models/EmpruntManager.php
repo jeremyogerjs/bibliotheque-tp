@@ -10,8 +10,7 @@ class Emprunt extends Manager
 
         if($db)
         {
-            $sql = "SELECT * FROM emprunt LEFT JOIN adherent ON emprunt.idAdherent = adherent.id
-                    LEFT JOIN livre ON livre.id = emprunt.idLivre";
+            $sql = "SELECT * FROM emprunt LEFT JOIN livre ON emprunt.idLivre = livre.id LEFT JOIN adherent ON emprunt.idAdherent = adherent.id";
             $result = $db ->prepare($sql);
 
             $result ->execute();
@@ -32,7 +31,7 @@ class Emprunt extends Manager
         if($db)
         {
             $sql = "SELECT * FROM emprunt LEFT JOIN adherent ON emprunt.idAdherent = adherent.id
-            LEFT JOIN livre ON emprunt.idLivre = livre.id WHERE idLivre = $id";
+            LEFT JOIN livre ON emprunt.idLivre = livre.id WHERE emprunt.id = $id";
 
             $result = $db -> prepare($sql);
 

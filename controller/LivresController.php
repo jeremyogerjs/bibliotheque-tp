@@ -40,7 +40,7 @@ class LivresController
         }
         else
         {
-            $results = $this -> model -> getLivreRayon();
+            $options = $this -> model -> getRayons();
             require('./views/forms/formLivre.php');
         }
     }
@@ -48,11 +48,12 @@ class LivresController
     {
         if(!empty($_POST) && isset($_GET['id']) && $_GET['id'] >= 0)
         {
-            $this -> model -> updateLivre();
+            $test = $this -> model -> updateLivre();
             header("location:index.php?action=list&target=livre");
         }
         else
         {
+            $options = $this -> model -> getRayons();
             $results = $this -> model -> getLivreRayon();
             require('./views/forms/formLivre.php');
         }

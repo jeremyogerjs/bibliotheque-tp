@@ -37,6 +37,7 @@ class RayonController
         }
         else
         {
+            
             require('./views/forms/formRayon.php');
         }
     }
@@ -44,11 +45,13 @@ class RayonController
     {
         if(!empty($_POST))
         {
+            
             $this -> model -> updateRayon();
-            header("location:index.php?action=list&target=rayon");
+            header("location:index.php?action=list&target=rayon&id=5");
         }
         else
         {
+            $results = $this -> model -> getSingleRayon();
             require('./views/forms/formRayon.php');
         }
     }

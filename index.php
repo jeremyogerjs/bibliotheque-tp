@@ -40,7 +40,7 @@ if(isset($_GET['action']))
                 $rayon -> createRayon();
                 break;
             case "emprunt" :
-                //appeler le controller create
+                $emprunt -> createEmprunt(); // marche pas a mettre en place logique et test
                 break;
             case "adherent" :
                 $adherent -> addAdherent();
@@ -52,16 +52,16 @@ if(isset($_GET['action']))
         switch ($_GET['target'])
         {
             case "livre":
-                $livre -> updateLivre(); //marche pas
+                $livre -> updateLivre(); 
                 break;
             case "rayon" :
-                $rayon -> updateRayon(); //marche pas
+                $rayon -> updateRayon();
                 break;
             case "emprunt" :
                 //appeler l'update d'emprunt
                 break;
             case "adherent" :
-                //appeler l'update de l'adherent
+                $adherent -> updateAdherent();
                 break;
         }
     }
@@ -94,7 +94,7 @@ if(isset($_GET['action']))
                 $rayon -> getOne();
                 break;
             case "emprunt" :
-                $emprunt -> singleEmprunt(); // marche pas
+                $emprunt -> singleEmprunt(); 
                 break;
             case "adherent" :
                 $adherent -> singleAdherent();

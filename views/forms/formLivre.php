@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 <?php
-
+var_dump($_POST);
 function getAction ()
 {
     if($_GET['action'] === "create")
@@ -9,13 +9,13 @@ function getAction ()
     }
     elseif($_GET['action'] == "update")
     {
-        return "index.php?action=update&target=livre";
+        return "index.php?action=update&target=livre&id=".$_GET['id'];
     }
 };
 
 ?>
 
-<form action="<?= getAction(); ?>" method="POST" class="col-3 mx-auto">
+<form action="<?= getAction() ?>" method="POST" class="col-3 mx-auto">
 <h2><?= $_GET['action'] === "create" ? "Ajouter livre" : "Modifier livre"; ?> </h2>
     <div class="mb-3">
         <label for="titre" class="form-label">titre</label>
@@ -35,7 +35,7 @@ function getAction ()
     
         <select class="form-select" name="idRayon" aria-label="Default select example">
             <option selected>Selectionner le rayon</option>
-            <?php foreach($results as $result) : ?>
+            <?php foreach($options as $result) : ?>
                 <option value="<?= $result['id']; ?>"><?= $result['nom']; ?></option>
             <?php endforeach; ?>
         </select>

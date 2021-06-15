@@ -55,4 +55,20 @@ class AdherentController
             header("location:index.php?action=list&target=adherent");
         }
     }
+    public function updateAdherent ()
+    {
+        if(!empty($_POST))
+        {
+            if(isset($_GET['id']) && $_GET['id'] >= 0)
+            {
+                $this -> model -> updateAdherent();
+                header("location:index.php?action=list&target=adherent");
+            }
+        }
+        else
+        {
+            $results = $this -> model -> getSingleAdherent();
+            require('./views/forms/formAdherent.php');
+        }
+    }
 }

@@ -9,14 +9,14 @@
         }
         elseif($_GET['action'] == "update")
         {
-            return "index.php?action=update&target=rayon";
+            return "index.php?action=update&target=rayon&id=".$_GET['id'];
         }
     }
 ?>
 <form action="<?= getAction() ?>" method="POST">
 
     <label for="nom">Nom :</label>
-    <input type="text" name="nom" id="nom" required>
+    <input type="text" name="nom" id="nom" placeholder="<?= $_GET['action'] === "update" ? 'actuel : '. $results['nom'] : "" ?>" required>
     <button type="submit" class="btn btn-primary"><?= $_GET['action'] === 'create' ?'Submit' : 'Modifier' ?></button>
 </form>
 

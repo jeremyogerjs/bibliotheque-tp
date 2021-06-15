@@ -48,15 +48,14 @@ class Rayon extends Manager
     public function updateRayon ()
     {
         $db = $this -> dbConnect();
-        $id = $_GET['id'];
         if($db)
         {
+            $id = $_GET['id'];
             $nom = htmlspecialchars($_POST['nom']);
 
-            $sql = "UPDATE rayon SET (nom) VALUES (?) WHERE id = $id";
+            $sql = "UPDATE rayon SET nom = ? WHERE id = ?";
             $result = $db ->prepare($sql);
-
-            $results = $result -> execute([$nom]);
+            $results = $result -> execute([$nom,$id]);
 
             return $results;
 

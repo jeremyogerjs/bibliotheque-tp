@@ -1,5 +1,5 @@
 <?php ob_start(); ?>
-
+<?php echo "je suis dans la lsite emprunt !!"; ?>
 <?php  var_dump($results); ?>
 
   <table class="table">
@@ -25,9 +25,9 @@
             <td><?= $result['dateRetour']; ?></td>
             
             <td class="actions">
-              <a href="index.php?action=single&target=<?= $_GET['target']; ?>&id=<?= $result['id'] ?>" class="edit"> <i class="fas fa-user fa-xs"></i> </a>
-              <a href="index.php?action=update&target=<?= $_GET['target']; ?>&id=<?= $result['id'] ?>" class="edit"><i class="fas fa-pen fa-xs"></i></a>
-              <a href="index.php?action=delete&target=<?= $_GET['target']; ?>&id=<?= $result['id'] ?>" class="trash"><i class="fas fa-trash fa-xs"></i></a>
+              <a href="index.php?action=single&target=<?= $_GET['target']; ?>&id=<?= $result['id'] ?>" class="edit"> <i class="fas fa-user fa"></i> </a>
+              <a href="index.php?action=update&target=<?= $_GET['target']; ?>&id=<?= $result['id'] ?>" class="edit mx-2"><i class="fas fa-pen fa"></i></a>
+              <a href="index.php?action=delete&target=<?= $_GET['target']; ?>&id=<?= $result['id'] ?>" class="trash"><i class="fas fa-trash fa"></i></a>
             </td>
         </tr>
       <?php endforeach; ?>

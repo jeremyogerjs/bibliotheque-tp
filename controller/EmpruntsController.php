@@ -21,7 +21,12 @@ class EmpruntController
         {
             $results = $this -> model ->getAllEmprunt();
 
-            require ('./views/listes/listeEmprunt.php');
+            require('./views/listes/listeEmprunt.php');
+        }
+        else
+        {
+            $results = $this -> model ->getAllEmprunt();
+            var_dump($results);
         }
     }
     public function singleEmprunt()
@@ -30,6 +35,19 @@ class EmpruntController
         {
             $results = $this -> model -> getSingleEmprunt();
             require('./views/singles/singleEmprunt.php');
+        }
+    }
+    public function createEmprunt ()
+    {
+        if(!empty($_POST))
+        {
+            $this -> model -> createEmprunt();
+            header("location:index.ph?action=list&target=emprunt");
+        }
+        else
+        {
+            $results = $this -> model ->getAllEmprunt();
+            require('./views/forms/formEmprunt.php');
         }
     }
 }
