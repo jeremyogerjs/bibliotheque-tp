@@ -26,7 +26,7 @@ class EmpruntController
         else
         {
             $results = $this -> model ->getAllEmprunt();
-            var_dump($results);
+            require('./views/listes/listeEmprunt.php');
         }
     }
     public function singleEmprunt()
@@ -42,9 +42,17 @@ class EmpruntController
         if(!empty($_POST))
         {
             $results = $this -> model -> createEmprunt();
-            $this -> model -> updateEmpruntAdherent();
-            $this -> model -> updateEmpruntLivre();
-            header("location:index.php?action=list&target=emprunt");
+            if($results)
+            {
+                $this -> model -> addEmpruntAdherent();
+                $this -> model -> updateEmpruntLivre(false);
+                header("location:index.php?action=list&target=emprunt");
+            }
+            else
+            {
+                $error = "une erreur est survenue ! "; // a tester
+                require('./views/forms/formEmprunt.php');
+            }
         }
         else
         {
@@ -71,6 +79,8 @@ class EmpruntController
     }
     public function deleteEmprunt()
     {
+        $this -> model -> subEmpruntAdherent();
+        $this -> model -> updateEmpruntLivre(false);
         $this -> model -> deleteEmprunt();
         header("location:index.php?action=list&target=emprunt");
 

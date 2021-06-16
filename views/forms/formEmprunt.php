@@ -30,7 +30,7 @@ function getAction ()
 <h4><?= $_GET['action'] === "create" ? "Ajouter un emprunt" : "Modifier un emprunt" ?></h4>
     <form action="<?= getAction(); ?>" method="POST">
         <div class="mb-3">
-            <select class="form-select" name="idAdherent" aria-label="Default select example">
+            <select class="form-select" name="idAdherent" aria-label="Default select example" required>
                 <option selected>Selctionner l'adherent</option>
                 <?php foreach($optionsAdherent as $result) : ?>
                     <option value="<?= $result['id']; ?>"><?= $result['nom']; ?> <?= $result['prenom']; ?> Nb Emprunt Tot : <?= $result['nbLivreEmprunt']; ?> </option>
@@ -42,7 +42,7 @@ function getAction ()
             <?php endif; ?>
         </div>
         <div class="mb-3">
-            <select class="form-select" name="idLivre" aria-label="Default select example">
+            <select class="form-select" name="idLivre" aria-label="Default select example" required>
                 <option selected>Selectionner les livres ( disponible ) </option>
                 <?php foreach($optionsLivre as $result) : ?>
                     <option value="<?= $result['id']; ?>"><?= $result['titre']; ?></option>
@@ -55,14 +55,14 @@ function getAction ()
         </div>
         <div class="mb-3">
             <label for="dateEmprunt">Date d'emprunt</label>
-            <input type="date" class="form-control" name="dateEmprunt" id="dateEmprunt">
+            <input type="date" class="form-control" name="dateEmprunt" id="dateEmprunt" required>
             <?php if ($_GET['action'] === "update") : ?>
                 <div id="dateEmpruntHelp" class="form-text">Date Emprunt actuel : <?= $results['dateEmprunt']; ?> </div>
             <?php endif; ?>
         </div>
         <div class="mb-3">
             <label for="dateRetour">Date Retour ( optional )</label>
-            <input type="date" class="form-control" name="dateRetour" id="dateEmprunt">
+            <input type="date" class="form-control" name="dateRetour" id="dateEmprunt" required>
             <?php if ($_GET['action'] === "update") : ?>
                 <div id="dateRetourHelp" class="form-text">Date Retour actuel : <?= $results['dateRetour']; ?> </div>
             <?php endif; ?>

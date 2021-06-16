@@ -55,14 +55,14 @@ class Livre extends Manager
         $id = $_GET['id'];
         if($db)
         {
-            $sql = "DELETE FROM livre WHERE id = $id";
+            $sql = "DELETE FROM livre WHERE id = $id AND disponible = 1";
             $db -> exec($sql);
 
             echo "deleted success !";
         }
         else
         {
-            http_response_code(500);
+           throw new Exception("deleted error !!!");
         }
     }
     public function getSingleLivre ()

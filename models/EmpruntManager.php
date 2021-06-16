@@ -9,8 +9,8 @@ class Emprunt extends Manager
         $db = $this -> dbConnect();
         if($db)
         {
-            //renvoie mauvaise ID == ID du dernier join
-            $sql = "SELECT * FROM emprunt INNER JOIN adherent ON emprunt.idAdherent = adherent.id INNER  JOIN livre ON emprunt.idLivre = livre.id";
+            $sql = "SELECT e.dateRetour, e.dateRetourMax,e.dateRetour,l.titre,a.nom,a.prenom,e.id,e.dateEmprunt
+                    FROM emprunt AS e INNER JOIN adherent AS a ON e.idAdherent = a.id INNER JOIN livre AS l ON e.idLivre = l.id";
             $result = $db ->prepare($sql);
 
             $result ->execute();
@@ -71,8 +71,8 @@ class Emprunt extends Manager
         $id = $_GET['id'];
         if($db)
         {
-            $sql = "SELECT * FROM emprunt LEFT JOIN adherent ON emprunt.idAdherent = adherent.id
-            LEFT JOIN livre ON emprunt.idLivre = livre.id WHERE emprunt.id = $id";
+            $sql = "SELECT e.dateRetour, e.dateRetourMax,e.dateRetour,l.titre,a.nom,a.prenom,e.id,e.dateEmprunt,a.nbLivreEmprunt
+                    FROM emprunt AS e INNER JOIN adherent AS a ON e.idAdherent = a.id INNER JOIN livre AS l ON e.idLivre = l.id WHERE e.id = $id";
 
             $result = $db -> prepare($sql);
 
@@ -87,7 +87,7 @@ class Emprunt extends Manager
             http_response_code(500);
         }
     }
-    public function updateEmpruntAdherent ()
+    public function addEmpruntAdherent ()
     {
         $db = $this -> dbConnect();
         $id = $_POST['idAdherent'];
@@ -106,16 +106,35 @@ class Emprunt extends Manager
             http_response_code(500);
         }
     }
-    public function updateEmpruntLivre ()
+    public function subEmpruntAdherent ()
     {
         $db = $this -> dbConnect();
-        $id = $_POST['idLivre'];
+        $id = $_GET['id'];
         if($db)
         {
-            $sql = "UPDATE livre SET disponible = false WHERE id = $id";
+            $sql = "UPDATE adherent AS a , emprunt AS e  SET a.nbLivreEmprunt = a.nbLivreEmprunt -1 WHERE e.id = $id AND  e.idAdherent = a.id";
+
+            $result = $db -> prepare($sql);
+
+            $results = $result -> execute();
+
+            return $results;
+        }
+        else
+        {
+            http_response_code(500);
+        }
+    }
+    public function updateEmpruntLivre ($val)
+    {
+        $db = $this -> dbConnect();
+        $id = $_GET['id'];
+        if($db)
+        {
+        $sql = "UPDATE livre AS l , emprunt AS e SET l.disponible = :dispo WHERE l.id = e.idLivre";
 
             $result = $db ->prepare($sql);
-
+            $result ->bindParam(':dispo',$val, PDO::PARAM_BOOL);
             $results = $result ->execute();
 
             return $results;
