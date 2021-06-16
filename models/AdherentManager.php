@@ -7,15 +7,7 @@ class Adherent extends Manager
         $db = $this -> dbConnect();
         if($db)
         {
-            $sql = "SELECT * FROM adherent";
-
-            $result = $db -> prepare($sql);
-
-            $result -> execute();
-
-            $results = $result -> fetchAll();
-
-            return $results;
+            return $this -> getAll("adherent",$db);
         }
         else
         {
@@ -26,18 +18,10 @@ class Adherent extends Manager
     public function getSingleAdherent ()
     {
         $db = $this -> dbConnect();
-        $id = $_GET['id'];
+
         if($db)
         {
-            $sql = "SELECT * FROM adherent WHERE id = $id";
-            $result = $db -> prepare($sql);
-
-            $result -> execute();
-
-            $results = $result -> fetch();
-
-            return $results;
-
+            return $this -> getSingle("adherent",$db);
         }
         else
         {

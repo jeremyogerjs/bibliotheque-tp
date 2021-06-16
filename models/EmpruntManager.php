@@ -9,7 +9,8 @@ class Emprunt extends Manager
         $db = $this -> dbConnect();
         if($db)
         {
-            $sql = "SELECT * FROM emprunt LEFT JOIN livre ON emprunt.idLivre = livre.id LEFT JOIN adherent ON emprunt.idAdherent = adherent.id";
+            //renvoie mauvaise ID == ID du dernier join
+            $sql = "SELECT * FROM emprunt INNER JOIN adherent ON emprunt.idAdherent = adherent.id INNER  JOIN livre ON emprunt.idLivre = livre.id";
             $result = $db ->prepare($sql);
 
             $result ->execute();
@@ -28,7 +29,8 @@ class Emprunt extends Manager
         $db = $this -> dbConnect();
         if($db)
         {
-            $sql = "SELECT * FROM adherent";
+            $sql = "SELECT * FROM adherent HAVING nbLivreEmprunt < 5";
+
             $result = $db -> prepare($sql);
     
             $result -> execute();
@@ -36,6 +38,10 @@ class Emprunt extends Manager
             $results = $result ->fetchAll();
 
             return $results;
+        }
+        else
+        {
+            http_response_code(500);
         }
     }
     public function getEmpruntLivre ()
@@ -53,7 +59,10 @@ class Emprunt extends Manager
 
             return $results;
         }
-        
+        else
+        {
+            http_response_code(500);
+        }
 
     }
     public function getSingleEmprunt ()
@@ -78,6 +87,44 @@ class Emprunt extends Manager
             http_response_code(500);
         }
     }
+    public function updateEmpruntAdherent ()
+    {
+        $db = $this -> dbConnect();
+        $id = $_POST['idAdherent'];
+        if($db)
+        {
+            $sql = "UPDATE adherent SET nbLivreEmprunt = nbLivreEmprunt +1 WHERE id = $id";
+
+            $result = $db -> prepare($sql);
+
+            $results = $result -> execute();
+
+            return $results;
+        }
+        else
+        {
+            http_response_code(500);
+        }
+    }
+    public function updateEmpruntLivre ()
+    {
+        $db = $this -> dbConnect();
+        $id = $_POST['idLivre'];
+        if($db)
+        {
+            $sql = "UPDATE livre SET disponible = false WHERE id = $id";
+
+            $result = $db ->prepare($sql);
+
+            $results = $result ->execute();
+
+            return $results;
+        }
+        else
+        {
+            http_response_code(500);
+        }
+    }
     public function updateEmprunt ()
     {
         $db = $this -> dbConnect();
@@ -86,7 +133,7 @@ class Emprunt extends Manager
         $idAdherent = htmlspecialchars($_POST['idAdherent']);
         $dateEmprunt = htmlspecialchars($_POST['dateEmprunt']);
         $dateRetourMax = htmlspecialchars($_POST['dateRetourMax']);
-        $dateRetour = htmlspecialchars($_POST['dateRetour']);
+        $dateRetour = empty($_POST['dateRetour']) ? NULL : $_POST['dateRetour']; // marche pas
 
         if($db)
         {
@@ -123,7 +170,7 @@ class Emprunt extends Manager
             $dateTime = DateTime::createFromFormat("Y-m-d",$dateEmprunt);
             $dateTime -> add(DateInterval::createFromDateString($week .'weeks'));
             $dateRetourMax = $dateTime -> format("Y-m-d");
-            $dateRetour = htmlspecialchars($_POST['dateRetour']) === NULL ? NULL : htmlspecialchars($_POST['dateRetour']);
+            $dateRetour = empty($_POST['dateRetour']) ? NULL : htmlspecialchars($_POST['dateRetour']);
 
             $sql = "INSERT INTO emprunt (idLivre,idAdherent,dateEmprunt,dateRetourMax,dateRetour)
                     VALUES (?, ?, ?, ?, ?)";
@@ -140,16 +187,20 @@ class Emprunt extends Manager
         }
     }
 
-    public function deleteEmprunt ($id)
+    public function deleteEmprunt ()
     {
         $db = $this -> dbConnect();
-
+        $id = $_GET['id'];
         if($db)
         {
             $sql = "DELETE FROM emprunt WHERE id =$id";
             $db ->exec($sql);
 
             return "deleted success !";
+        }
+        else
+        {
+            http_response_code(500);
         }
     }
 }

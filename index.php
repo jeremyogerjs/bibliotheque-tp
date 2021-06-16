@@ -58,7 +58,7 @@ if(isset($_GET['action']))
                 $rayon -> updateRayon();
                 break;
             case "emprunt" :
-                //appeler l'update d'emprunt
+                $emprunt -> updateEmprunt();
                 break;
             case "adherent" :
                 $adherent -> updateAdherent();
@@ -76,7 +76,7 @@ if(isset($_GET['action']))
                 $rayon -> deleteRayon();
                 break;
             case "emprunt" :
-                //appeler le delete de l'emprunt
+                $emprunt -> deleteEmprunt();
                 break;
             case "adherent" :
                 $adherent -> deleteAdherent();

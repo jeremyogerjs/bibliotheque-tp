@@ -1,8 +1,4 @@
 <?php ob_start(); ?>
-<?= "<pre>"; ?>
-<?php var_dump($results); ?>
-<?= "</pre>"; ?>
-
   <table class="table">
     <thead>
       <tr>

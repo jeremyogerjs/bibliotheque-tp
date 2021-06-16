@@ -1,7 +1,7 @@
 <?php ob_start(); ?>
-<?php echo "je suis dans la lsite emprunt !!"; ?>
-<?php  var_dump($results); ?>
-
+<?= "<pre>" ?>
+<?php var_dump($results); ?>
+<?= "</pre>" ?>
   <table class="table">
     <thead>
       <tr>
@@ -22,7 +22,7 @@
             <td><?= $result['nom']; ?> <?= $result['prenom']; ?></td>
             <td><?= $result['dateEmprunt']; ?></td>
             <td><?= $result['dateRetourMax']; ?></td>
-            <td><?= $result['dateRetour']; ?></td>
+            <td><?= $result['dateRetour'] == "0000-00-00" ? 'Non défini' : $result['dateRetour'] ?></td>
             
             <td class="actions">
               <a href="index.php?action=single&target=<?= $_GET['target']; ?>&id=<?= $result['id'] ?>" class="edit"> <i class="fas fa-user fa"></i> </a>

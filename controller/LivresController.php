@@ -28,6 +28,7 @@ class LivresController
         if(isset($_GET['id']) && $_GET['id'] >=0 )
         {
             $this -> model -> deleteLivre();
+            echo "deleted succes !!";
             header("location:index.php?action=list&target=livre"); 
         }
     }

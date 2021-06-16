@@ -9,15 +9,7 @@ class Rayon extends Manager
 
         if($db)
         {
-            $sql = "SELECT * FROM rayon";
-
-            $result = $db -> prepare($sql);
-
-            $result -> execute();
-
-            $results = $result -> fetchAll();
-
-            return $results;
+            return $this -> getAll("rayon",$db);
         }
         else
         {
@@ -27,18 +19,9 @@ class Rayon extends Manager
     public function getSingleRayon ()
     {
         $db = $this -> dbConnect();
-        $id = $_GET['id'];
         if($db)
         {
-            $sql = "SELECT (nom) FROM rayon WHERE id = $id";
-
-            $result = $db -> prepare($sql);
-
-            $result -> execute();
-
-            $results = $result -> fetch();
-
-            return $results;
+            return $this -> getSingle("rayon",$db);
         }
         else
         {

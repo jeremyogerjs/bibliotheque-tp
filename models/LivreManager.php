@@ -25,15 +25,7 @@ class Livre extends Manager
         $db = $this -> dbConnect();
         if($db)
         {
-            $sql = "SELECT * FROM rayon";
-
-            $result = $db ->prepare($sql);
-
-            $result -> execute();
-
-            $results = $result ->fetchAll();
-
-            return $results;
+            return $this -> getAll("rayon",$db);
         }
     }
     public function getLivreRayon ()

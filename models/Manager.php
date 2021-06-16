@@ -50,6 +50,31 @@ abstract class Manager
             echo "connection fail : " . $e ->getMessage();
         }
     }
+    public function getAll ($table,$db)
+    {
+        $sql = "SELECT * FROM $table";
+
+        $result = $db -> prepare($sql);
+
+        $result -> execute();
+
+        $results = $result ->fetchAll();
+
+        return $results;
+    }
+    public function getSingle($table,$db)
+    {
+        $id = $_GET['id'];
+        $sql = "SELECT * FROM $table WHERE id = $id";
+
+        $result = $db ->prepare($sql);
+
+        $result -> execute();
+
+        $results = $result -> fetch();
+
+        return $results;
+    }
     //setter
     public function setServerName ($servername)
     {

@@ -42,8 +42,9 @@ class EmpruntController
         if(!empty($_POST))
         {
             $results = $this -> model -> createEmprunt();
-            //header("location:index.ph?action=list&target=emprunt");
-            require('./views/forms/formEmprunt.php');
+            $this -> model -> updateEmpruntAdherent();
+            $this -> model -> updateEmpruntLivre();
+            header("location:index.php?action=list&target=emprunt");
         }
         else
         {
@@ -51,5 +52,27 @@ class EmpruntController
             $optionsLivre = $this -> model -> getEmpruntLivre();
             require('./views/forms/formEmprunt.php');
         }
+    }
+    public function updateEmprunt()
+    {
+        if(!empty($_POST))
+        {
+            $results = $this -> model -> updateEmprunt ();
+            header("location:index.php?action=list&target=emprunt");
+
+        }
+        else
+        {
+            $optionsAdherent = $this -> model -> getEmpruntAdherent();
+            $optionsLivre = $this -> model -> getEmpruntLivre();
+            $results = $this -> model -> getSingleEmprunt();
+            require('./views/forms/formEmprunt.php');
+        }
+    }
+    public function deleteEmprunt()
+    {
+        $this -> model -> deleteEmprunt();
+        header("location:index.php?action=list&target=emprunt");
+
     }
 }
