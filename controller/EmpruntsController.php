@@ -74,4 +74,9 @@ class EmpruntController extends Emprunt
             header("location:index.php?action=list&target=emprunt");
         
     }
+    public function search()
+    {
+        $results = $this -> searchEmprunt();
+        require('./views/listes/listeEmprunt.php');
+    }
 }

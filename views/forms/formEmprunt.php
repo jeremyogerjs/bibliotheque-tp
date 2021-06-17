@@ -26,9 +26,9 @@ function getAction ()
 <?php endif; ?>
 
 </div>
-<div class="col-5 mx- auto">
-<h4><?= $_GET['action'] === "create" ? "Ajouter un emprunt" : "Modifier un emprunt" ?></h4>
-    <form action="<?= getAction(); ?>" method="POST">
+<div class="col-5 mx-auto m-5">
+<h4 class="my-3"><?= $_GET['action'] === "create" ? "Ajouter un emprunt" : "Modifier un emprunt" ?></h4>
+    <form action="<?= getAction(); ?>" method="POST" class="p-4 border border-2 rounded">
         <div class="mb-3">
             <select class="form-select" name="idAdherent" aria-label="Default select example" required>
                 <option selected>Selctionner l'adherent</option>
@@ -67,7 +67,10 @@ function getAction ()
                 <div id="dateRetourHelp" class="form-text">Date Retour actuel : <?= $results['dateRetour']; ?> </div>
             <?php endif; ?>
         </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="btn-group d-flex justify-content-around">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-warning"><a href="index.php?action=list&target=emprunt" class="text-white text-decoration-none">Retour </a></button>
+        </div>
     </form>
 </div>
 

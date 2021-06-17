@@ -72,7 +72,9 @@ class Adherent extends Manager
 
         if($db)
         {
+            //modifier sa !!!! need liste de ses emprunts (si il y a)
             return $this -> getSingle("adherent",$db);
+ 
         }
         else
         {

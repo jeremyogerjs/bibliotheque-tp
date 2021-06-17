@@ -1,0 +1,17 @@
+.trash:hover{
+    color: #2C0B0E !important;
+}
+.edit:hover{
+    color: #0A3622 !important;
+}
+
+.user:hover
+{
+    color: #031633 !important;
+}
+
+/* icone*/
+
+form{
+    margin-block-end: 0em !important;
+}

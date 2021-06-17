@@ -114,6 +114,46 @@ class Emprunt extends Manager
             http_response_code(500);
         }
     }
+    public function getAllEmpruntDispo()
+    {
+
+        if($this -> getDb())
+        {
+            $sql = "SELECT e.dateRetour, e.dateRetourMax,e.dateRetour,l.titre,a.nom,a.prenom,e.id,e.dateEmprunt
+                    FROM emprunt AS e INNER JOIN adherent AS a ON e.idAdherent = a.id INNER JOIN livre AS l ON e.idLivre = l.id HAVING l.disponible = true";
+            $result = $this -> getDb() ->prepare($sql);
+
+            $result ->execute();
+
+            $results = $result ->fetchAll();
+
+            return $results;
+        }
+        else
+        {
+            http_response_code(500);
+        }
+    }
+    public function getAllEmpruntIndispo()
+    {
+
+        if($this -> getDb())
+        {
+            $sql = "SELECT e.dateRetour, e.dateRetourMax,e.dateRetour,l.titre,a.nom,a.prenom,e.id,e.dateEmprunt
+                    FROM emprunt AS e INNER JOIN adherent AS a ON e.idAdherent = a.id INNER JOIN livre AS l ON e.idLivre = l.id HAVING l.disponible = false";
+            $result = $this -> getDb() ->prepare($sql);
+
+            $result ->execute();
+
+            $results = $result ->fetchAll();
+
+            return $results;
+        }
+        else
+        {
+            http_response_code(500);
+        }
+    }
     public function getEmpruntAdherent ()
     {
         
@@ -214,6 +254,20 @@ class Emprunt extends Manager
         {
             http_response_code(500);
         }
+    }
+    public function searchEmprunt()
+    {
+        $search = $_POST['search'];
+        $sql = "SELECT e.dateRetour, e.dateRetourMax,e.dateRetour,l.titre,a.nom,a.prenom,e.id,e.dateEmprunt
+        FROM emprunt AS e INNER JOIN adherent AS a ON e.idAdherent = a.id INNER JOIN livre AS l ON e.idLivre = l.id WHERE l.titre LIKE ? OR a.nom LIKE ? OR a.prenom LIKE ?";
+
+        $result = $this ->dbConnect() ->prepare($sql);
+
+        $result ->execute(["%$search%","%$search%","%$search%"]);
+
+        $results = $result ->fetchAll();
+
+        return $results;
     }
     public function updateEmpruntLivre ($val)
     {

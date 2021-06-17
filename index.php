@@ -29,6 +29,24 @@ if(isset($_GET['action']))
                 break;
         }
     }
+    elseif($_GET['action'] === "search")
+    {
+        switch ($_GET['target'])
+        {
+            case "livre" :
+                // creer requete search dans model + controller
+                break;
+            case "adherent" :
+                // creer requete search dans model + controller
+                break;
+            case "emprunt" : 
+                $emprunt ->search();
+                break;
+            case "rayon" :
+                // creer requete search dans model + controller
+                break;
+        }
+    }
     elseif ($_GET['action'] === "create")
     {
         switch ($_GET['target'])
