@@ -1,7 +1,4 @@
 <?php ob_start(); ?>
-
-<?php  var_dump($results); ?>
-
   <table class="table">
     <thead>
       <tr>
@@ -27,7 +24,7 @@
         </tr>
       <?php endforeach; ?>
       <?php else : ?>
-        <p>Aucune donnée !</p>
+        <p>Aucun adhérent</p>
     <?php endif; ?>
     </tbody>
   </table>

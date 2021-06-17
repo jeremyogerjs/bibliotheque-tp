@@ -2,30 +2,19 @@
 
 require('./models/EmpruntManager.php');
 
-class EmpruntController 
+class EmpruntController extends Emprunt
 {
-    private $model;
-
-    public function __construct()
-    {
-        $this -> loadModel();
-    }
-    public function loadModel ()
-    {
-
-        $this -> model = new Emprunt();
-    }
     public function allEmprunt ()
     {
-        if($this -> model -> getAllEmprunt())
+        if($this -> getAllEmprunt())
         {
-            $results = $this -> model ->getAllEmprunt();
+            $results = $this ->getAllEmprunt();
 
             require('./views/listes/listeEmprunt.php');
         }
         else
         {
-            $results = $this -> model ->getAllEmprunt();
+            $results = $this ->getAllEmprunt();
             require('./views/listes/listeEmprunt.php');
         }
     }
@@ -33,7 +22,7 @@ class EmpruntController
     {
         if(isset($_GET['id']) && $_GET['id'] >= 0)
         {
-            $results = $this -> model -> getSingleEmprunt();
+            $results = $this -> getSingleEmprunt();
             require('./views/singles/singleEmprunt.php');
         }
     }
@@ -41,23 +30,22 @@ class EmpruntController
     {
         if(!empty($_POST))
         {
-            $results = $this -> model -> createEmprunt();
+            $results = $this -> addEmprunt();
             if($results)
             {
-                $this -> model -> addEmpruntAdherent();
-                $this -> model -> updateEmpruntLivre(false);
+                $this -> addEmpruntAdherent();
+                $this -> updateEmpruntLivre(false);
                 header("location:index.php?action=list&target=emprunt");
             }
             else
             {
-                $error = "une erreur est survenue ! "; // a tester
                 require('./views/forms/formEmprunt.php');
             }
         }
         else
         {
-            $optionsAdherent = $this -> model -> getEmpruntAdherent();
-            $optionsLivre = $this -> model -> getEmpruntLivre();
+            $optionsAdherent = $this -> getEmpruntAdherent();
+            $optionsLivre = $this -> getEmpruntLivre();
             require('./views/forms/formEmprunt.php');
         }
     }
@@ -65,24 +53,25 @@ class EmpruntController
     {
         if(!empty($_POST))
         {
-            $results = $this -> model -> updateEmprunt ();
+            $results = $this -> modifyEmprunt ();
             header("location:index.php?action=list&target=emprunt");
 
         }
         else
         {
-            $optionsAdherent = $this -> model -> getEmpruntAdherent();
-            $optionsLivre = $this -> model -> getEmpruntLivre();
-            $results = $this -> model -> getSingleEmprunt();
+            $optionsAdherent = $this -> getEmpruntAdherent();
+            $optionsLivre = $this -> getEmpruntLivre();
+            $results = $this -> getSingleEmprunt();
             require('./views/forms/formEmprunt.php');
         }
     }
     public function deleteEmprunt()
     {
-        $this -> model -> subEmpruntAdherent();
-        $this -> model -> updateEmpruntLivre(false);
-        $this -> model -> deleteEmprunt();
-        header("location:index.php?action=list&target=emprunt");
 
+            $this -> subEmpruntAdherent();
+            $this -> updateEmpruntLivre(true);
+            $this -> delEmprunt();
+            header("location:index.php?action=list&target=emprunt");
+        
     }
 }

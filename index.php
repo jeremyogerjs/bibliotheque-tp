@@ -5,10 +5,10 @@ require('./controller/EmpruntsController.php');
 require('./controller/AdherentsController.php');
 require('./controller/RayonsController.php');
 require('./controller/LivresController.php');
+$emprunt = new EmpruntController();
 $livre = new LivresController();
 $rayon = new RayonController();
 $adherent = new AdherentController();
-$emprunt = new EmpruntController();
 if(isset($_GET['action']))
 {
     if($_GET['action'] === 'list')
@@ -40,7 +40,7 @@ if(isset($_GET['action']))
                 $rayon -> createRayon();
                 break;
             case "emprunt" :
-                $emprunt -> createEmprunt(); // marche pas a mettre en place logique et test
+                $emprunt -> createEmprunt(); 
                 break;
             case "adherent" :
                 $adherent -> addAdherent();

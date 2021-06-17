@@ -26,14 +26,14 @@ abstract class Manager
             }
         }
     }
-    public function getConfig()
+    private function getConfig()
     {
         require('./db-config.php');
 
         return $config;
     }
 
-    public function dbConnect ()
+    protected function dbConnect ()
     {
         try{
 

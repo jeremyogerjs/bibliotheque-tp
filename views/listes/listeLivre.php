@@ -27,7 +27,7 @@
         </tr>
       <?php endforeach; ?>
       <?php else : ?>
-        <p>Aucune donnée !</p>
+        <p>Aucun Livre !</p>
     <?php endif; ?>
     </tbody>
   </table>

@@ -3,6 +3,70 @@ require_once('./models/Manager.php');
 
 class Livre extends Manager
 {
+    private $_id;
+    private $_titre;
+    private $_auteur;
+    private $_disponible;
+    private $_idRayon;
+
+    //setter
+    private function setId($id)
+    {
+        if(isset($id))
+        {
+            return $this -> _id = $id;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private function setTitre ($titre)
+    {
+        if(isset($titre))
+        {
+            return $this -> _titre = htmlspecialchars($titre);
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private function setAuteur ($auteur)
+    {
+        if(isset($auteur))
+        {
+            return $this -> _auteur = htmlspecialchars($auteur);
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private function setDisponible ($disponible)
+    {
+        if(isset($disponible))
+        {
+            return $this -> _disponible = $disponible;
+        }
+        else
+        {
+            return;
+        }
+    }
+    private function setIdRayon ($idRayon)
+    {
+        if(isset($idRayon))
+        {
+            return $this -> _idRayon = $idRayon;
+        }
+        else
+        {
+            return false; 
+        }
+    }
+
+    //methods
     public function getLivre ()
     {
         $db = $this -> dbConnect();
@@ -31,7 +95,7 @@ class Livre extends Manager
     public function getLivreRayon ()
     {
         $db = $this -> dbConnect();
-        $id = $_GET['id'];
+        $id = $this -> setId($_GET['id']);
         if($db)
         {
             $sql = "SELECT * FROM rayon RIGHT JOIN livre ON livre.idRayon = rayon.id WHERE livre.id = $id";
@@ -49,10 +113,10 @@ class Livre extends Manager
             http_response_code(500);
         }
     }
-    public function deleteLivre ()
+    public function delLivre ()
     {
         $db = $this ->dbConnect();
-        $id = $_GET['id'];
+        $id = $this -> setId($_GET['id']);
         if($db)
         {
             $sql = "DELETE FROM livre WHERE id = $id AND disponible = 1";
@@ -62,13 +126,13 @@ class Livre extends Manager
         }
         else
         {
-           throw new Exception("deleted error !!!");
+            http_response_code(500);
         }
     }
     public function getSingleLivre ()
     {
         $db = $this -> dbConnect();
-        $id = $_GET['id'];
+        $id = $this -> setId($_GET['id']);
         if($db)
         {
             $sql = "SELECT * FROM rayon LEFT JOIN livre ON rayon.id = livre.idRayon WHERE livre.id = $id";
@@ -86,16 +150,16 @@ class Livre extends Manager
             http_response_code(500);
         }
     }
-    public function updateLivre ()
+    public function modifyLivre ()
     {
         $db = $this -> dbConnect();
-        $id = $_GET['id'];
+        $id = $this -> setId($_GET['id']);
         if($db)
         {
-            $titre = htmlspecialchars($_POST['titre']);
-            $auteur = htmlspecialchars($_POST['auteur']);
-            $disponible = true;
-            $idRayon = $_POST['idRayon'];
+            $titre = $this -> setTitre($_POST['titre']);
+            $auteur = $this -> setAuteur($_POST['auteur']);
+            $disponible = $this -> setDisponible(true);
+            $idRayon = $this -> setIdRayon($_POST['idRayon']);
             $sql = "UPDATE livre SET 
                     titre       = :titre,
                     auteur      = :auteur,
@@ -117,13 +181,13 @@ class Livre extends Manager
             http_response_code(500);
         }
     }
-    public function createLivre ()
+    public function addLivre ()
     {
         $db = $this -> dbConnect();
-        $titre = htmlspecialchars($_POST['titre']);
-        $auteur = htmlspecialchars($_POST['auteur']);
-        $disponible = true;
-        $idRayon = $_POST['idRayon'];
+        $titre = $this -> setTitre($_POST['titre']);
+        $auteur = $this -> setAuteur($_POST['auteur']);
+        $disponible = $this -> setDisponible(true);
+        $idRayon = $this -> setIdRayon($_POST['idRayon']);
         if($db)
         {
             $sql = "INSERT INTO livre (

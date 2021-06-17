@@ -1,5 +1,4 @@
 <?php ob_start(); ?>
-
   <table class="table">
     <thead>
       <tr>
@@ -30,7 +29,7 @@
         </tr>
       <?php endforeach; ?>
       <?php else : ?>
-      <p>Aucune donnée !</p>
+      <p>Aucune Emprunt actuellement !</p>
     <?php endif; ?>
     </tbody>
   </table>

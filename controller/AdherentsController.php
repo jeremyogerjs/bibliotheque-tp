@@ -4,46 +4,34 @@ require_once('./models/AdherentManager.php');
 
 
 
-class AdherentController
+class AdherentController extends Adherent
 {
-    private $model;
-
-    public function __construct()
-    {
-        $this -> loadModel();
-    }
-    public function loadModel ()
-    {
-
-        $this -> model = new Adherent();
-    }
     public function getAllAd ()
     {
-        $results = $this -> model ->getAllAdherent();
+        $results = $this ->getAllAdherent();
 
         require ('./views/listes/listeAdherent.php');
     }
 
     public function addAdherent ()
     {
-        if($this -> model)
-        {
+
             if(!empty($_POST))
             {
-                $this -> model -> createAdherent();
+                $this -> createAdherent();
                 header("location:index.php?action=list&target=adherent");
             }
             else
             {
                 require('./views/forms/formAdherent.php');
             }
-        }
+ 
     }
     public function singleAdherent ()
     {
         if(isset($_GET['id']) && $_GET['id'] >= 0)
         {
-            $results = $this -> model -> getSingleAdherent();
+            $results = $this -> getSingleAdherent();
             require('./views/singles/singleAdherent.php');
         }
     }
@@ -51,8 +39,9 @@ class AdherentController
     {
         if(isset($_GET['id']) && $_GET['id'] >= 0)
         {
-            $this -> model -> deleteAdherent();
+            $this -> delAdherent();
             header("location:index.php?action=list&target=adherent");
+
         }
     }
     public function updateAdherent ()
@@ -61,13 +50,13 @@ class AdherentController
         {
             if(isset($_GET['id']) && $_GET['id'] >= 0)
             {
-                $this -> model -> updateAdherent();
+                $this -> modifyAdherent();
                 header("location:index.php?action=list&target=adherent");
             }
         }
         else
         {
-            $results = $this -> model -> getSingleAdherent();
+            $results = $this -> getSingleAdherent();
             require('./views/forms/formAdherent.php');
         }
     }

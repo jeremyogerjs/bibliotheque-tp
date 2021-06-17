@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 <?php
-var_dump($_POST);
+
 function getAction ()
 {
     if($_GET['action'] === "create")
@@ -62,7 +62,7 @@ function getAction ()
         </div>
         <div class="mb-3">
             <label for="dateRetour">Date Retour ( optional )</label>
-            <input type="date" class="form-control" name="dateRetour" id="dateEmprunt" required>
+            <input type="date" class="form-control" name="dateRetour" id="dateEmprunt">
             <?php if ($_GET['action'] === "update") : ?>
                 <div id="dateRetourHelp" class="form-text">Date Retour actuel : <?= $results['dateRetour']; ?> </div>
             <?php endif; ?>

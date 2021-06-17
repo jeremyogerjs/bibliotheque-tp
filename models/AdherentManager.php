@@ -2,6 +2,57 @@
 require_once('./models/Manager.php');
 class Adherent extends Manager
 {
+    private $_id;
+    private $_nom;
+    private $_prenom;
+    private $_nbLivreEmprunt;
+
+    //setter
+    private function setId($id)
+    {
+        if(isset($id))
+        {
+            return $this -> _id = $id;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private function setNom($nom)
+    {
+        if(isset($nom))
+        {
+            return $this -> _nom = htmlspecialchars($nom);
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private function setPrenom($prenom)
+    {
+        if(isset($prenom))
+        {
+            return $this -> _prenom = htmlspecialchars($prenom);
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private function setNbLivreEmprunt($nbLivreEmprunt)
+    {
+        if(isset($nbLivreEmprunt))
+        {
+            return $this -> _nbLivreEmprunt = $nbLivreEmprunt;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    //methods
     public function getAllAdherent ()
     {
         $db = $this -> dbConnect();
@@ -29,15 +80,15 @@ class Adherent extends Manager
         }
     }
 
-    public function updateAdherent ()
+    public function modifyAdherent ()
     {
         $db = $this -> dbConnect();
-        $id = $_GET['id'];
+        $id = $this -> setId($_GET['id']);
         if($db)
         {
-            $nom = htmlspecialchars($_POST['nom']);
-            $prenom = htmlspecialchars($_POST['prenom']);
-            $nbLivreEmprunt = htmlspecialchars($_POST['nbLivreEmprunt']);
+            $nom = $this -> setNom($_POST['nom']);
+            $prenom = $this -> setPrenom($_POST['prenom']);
+            $nbLivreEmprunt = $this -> setNbLivreEmprunt($_POST['nbLivreEmprunt']);
 
             $sql = "UPDATE adherent SET nom = ? , prenom = ?, nbLivreEmprunt = ?)
                     WHERE id = ?";
@@ -58,8 +109,8 @@ class Adherent extends Manager
         $db = $this -> dbConnect();
         if($db)
         {
-            $nom = htmlspecialchars($_POST['nom']);
-            $prenom = htmlspecialchars($_POST['prenom']);
+            $nom = $this -> setNom($_POST['nom']);
+            $prenom = $this -> setPrenom($_POST['prenom']);
 
             $sql = "INSERT INTO adherent (nom,prenom)
                     VALUES (?, ?)";
@@ -75,17 +126,17 @@ class Adherent extends Manager
             http_response_code(500);
         }
     }
-    public function deleteAdherent ()
+    public function delAdherent ()
     {
         $db = $this -> dbConnect();
-        $id = $_GET['id'];
+        $id = $this -> setId($_GET['id']);
         if($db)
         {
             $sql = "DELETE FROM adherent WHERE id = $id";
 
-            $db -> exec($sql);
+            $result = $db -> exec($sql);
 
-            return "deleted success !";
+            return $result;
         }
         else
         {

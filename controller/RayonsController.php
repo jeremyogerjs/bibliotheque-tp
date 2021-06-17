@@ -2,28 +2,18 @@
 require ('./models/RayonManager.php');
 
 
-class RayonController
+class RayonController extends Rayon
 {
-    private $model;
-
-    public function __construct()
-    {
-        $this -> loadModel();
-    }
-    public function loadModel ()
-    {
-        $this -> model = new Rayon();
-    }
     public function getAllRy ()
     {
-        $results = $this -> model -> getAllRayon();
+        $results = $this -> getAllRayon();
         require ('./views/listes/listeRayon.php');
     }
     public function getOne ()
     {
         if(isset($_GET['id']) && $_GET['id'] >=0)
         {
-            $results = $this -> model -> getSingleRayon();
+            $results = $this -> getSingleRayon();
             require('./views/singles/singleRayon.php');
 
         }
@@ -32,7 +22,7 @@ class RayonController
     {
         if(!empty($_POST))
         {
-            $this -> model -> createRayon();
+            $this -> addRayon();
             header("location:index.php?action=list&target=rayon");
         }
         else
@@ -46,12 +36,12 @@ class RayonController
         if(!empty($_POST))
         {
             
-            $this -> model -> updateRayon();
+            $this -> modifyRayon();
             header("location:index.php?action=list&target=rayon&id=5");
         }
         else
         {
-            $results = $this -> model -> getSingleRayon();
+            $results = $this -> getSingleRayon();
             require('./views/forms/formRayon.php');
         }
     }
@@ -59,7 +49,7 @@ class RayonController
     {
         if(isset($_GET['id']) && $_GET['id'] >= 0)
         {
-            $this -> model -> deleteRayon();
+            $this -> delRayon();
             header("location:index.php?action=list&target=rayon");
         }
     }

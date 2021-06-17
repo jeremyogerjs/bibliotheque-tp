@@ -3,22 +3,11 @@
 require ('./models/LivreManager.php');
 
 
-class LivresController
+class LivresController extends Livre
 {
-    private $model;
-
-    public function __construct()
-    {
-        $this -> loadModel();
-    }
-    public function loadModel ()
-    {
-
-        $this -> model = new Livre();
-    }
     public function AllLivre ()
     {
-        $results = $this -> model -> getLivre();
+        $results = $this -> getLivre();
 
         require ('./views/listes/listeLivre.php');
     }
@@ -27,7 +16,7 @@ class LivresController
     {
         if(isset($_GET['id']) && $_GET['id'] >=0 )
         {
-            $this -> model -> deleteLivre();
+            $this -> delLivre();
             echo "deleted succes !!";
             header("location:index.php?action=list&target=livre"); 
         }
@@ -36,12 +25,12 @@ class LivresController
     {
         if(!empty($_POST))
         {
-            $results = $this -> model -> createLivre();
+            $results = $this -> addLivre();
             header("location:index.php?action=list&target=livre");
         }
         else
         {
-            $options = $this -> model -> getRayons();
+            $options = $this -> getRayons();
             require('./views/forms/formLivre.php');
         }
     }
@@ -49,13 +38,13 @@ class LivresController
     {
         if(!empty($_POST) && isset($_GET['id']) && $_GET['id'] >= 0)
         {
-            $test = $this -> model -> updateLivre();
+            $test = $this -> modifyLivre();
             header("location:index.php?action=list&target=livre");
         }
         else
         {
-            $options = $this -> model -> getRayons();
-            $results = $this -> model -> getLivreRayon();
+            $options = $this -> getRayons();
+            $results = $this -> getLivreRayon();
             require('./views/forms/formLivre.php');
         }
     }
@@ -63,7 +52,7 @@ class LivresController
     {
         if(isset($_GET['id']) && $_GET['id'] >= 0)
         {
-            $results = $this -> model -> getSingleLivre();
+            $results = $this -> getSingleLivre();
             require('./views/singles/singleLivre.php');
         }
     }

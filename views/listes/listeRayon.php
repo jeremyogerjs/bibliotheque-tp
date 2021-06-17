@@ -22,7 +22,7 @@
         </tr>
       <?php endforeach; ?>
       <?php else : ?>
-        <p>Aucune donnée !</p>
+        <p>Aucun Rayon !</p>
     <?php endif; ?>
     </tbody>
   </table>

@@ -4,14 +4,104 @@ require_once('./models/Manager.php');
 
 class Emprunt extends Manager
 {
+    private $_id;
+    private $_idLivre;
+    private $_idAdherent;
+    private $_dateEmprunt;
+    private $_dateRetourMax;
+    private $_dateRetour;
+    private $db;
+    
+
+    //getter
+    private function getDb ()
+    {
+        return $this -> db = $this ->dbConnect();
+    }
+    //Setter
+    private function setId ($id)
+    {
+        if(isset($id))
+        {
+            return $this -> _id = $id;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private function setIdLivre($idLivre)
+    {
+        if(isset($idLivre))
+        {
+            return $this -> _idLivre = $idLivre;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private function setIdAdherent($idAdherent)
+    {
+        if(isset($idAdherent))
+        {
+            return $this -> _idAdherent = $idAdherent;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private function setDateEmprunt($dateEmprunt)
+    {
+        if(strtotime($dateEmprunt))
+        {
+            return $this -> _dateEmprunt = htmlspecialchars($dateEmprunt); // ajouter test SI DATEEMPRUNT >= DATENOW
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private function setDateRetourMax($dateRetourMax)
+    {
+        if(strtotime($dateRetourMax))
+        {
+            $week = 3;
+            $dateTime = DateTime::createFromFormat("Y-m-d",$dateRetourMax);
+            $dateTime -> add(DateInterval::createFromDateString($week .'weeks'));
+            return $this -> _dateRetourMax = htmlspecialchars($dateTime -> format("Y-m-d"));
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private function setDateRetour($dateRetour)
+    {
+        if(isset($dateRetour))
+        {
+            return $this -> _dateRetour = htmlspecialchars($dateRetour);
+        }
+        else
+        {
+            return false;
+        }
+    }
+    //getters
+    private function getDateEmprunt()
+    {
+        return $this -> _dateEmprunt;
+    }
+    //methods
     public function getAllEmprunt()
     {
-        $db = $this -> dbConnect();
-        if($db)
+
+        if($this -> getDb())
         {
             $sql = "SELECT e.dateRetour, e.dateRetourMax,e.dateRetour,l.titre,a.nom,a.prenom,e.id,e.dateEmprunt
                     FROM emprunt AS e INNER JOIN adherent AS a ON e.idAdherent = a.id INNER JOIN livre AS l ON e.idLivre = l.id";
-            $result = $db ->prepare($sql);
+            $result = $this -> getDb() ->prepare($sql);
 
             $result ->execute();
 
@@ -26,12 +116,12 @@ class Emprunt extends Manager
     }
     public function getEmpruntAdherent ()
     {
-        $db = $this -> dbConnect();
-        if($db)
+        
+        if($this ->getDb())
         {
             $sql = "SELECT * FROM adherent HAVING nbLivreEmprunt < 5";
 
-            $result = $db -> prepare($sql);
+            $result = $this ->getDb() -> prepare($sql);
     
             $result -> execute();
 
@@ -46,12 +136,12 @@ class Emprunt extends Manager
     }
     public function getEmpruntLivre ()
     {
-        $db = $this -> dbConnect();
-        if($db)
+        
+        if($this ->getDb())
         {
             $sql = "SELECT * FROM livre HAVING disponible = 1";
 
-            $result = $db -> prepare($sql);
+            $result = $this ->getDb() -> prepare($sql);
     
             $result -> execute();
 
@@ -67,14 +157,14 @@ class Emprunt extends Manager
     }
     public function getSingleEmprunt ()
     {
-        $db = $this -> dbConnect();
-        $id = $_GET['id'];
-        if($db)
+        
+        $id = $this -> setId($_GET['id']);
+        if($this ->getDb())
         {
             $sql = "SELECT e.dateRetour, e.dateRetourMax,e.dateRetour,l.titre,a.nom,a.prenom,e.id,e.dateEmprunt,a.nbLivreEmprunt
                     FROM emprunt AS e INNER JOIN adherent AS a ON e.idAdherent = a.id INNER JOIN livre AS l ON e.idLivre = l.id WHERE e.id = $id";
 
-            $result = $db -> prepare($sql);
+            $result = $this ->getDb() -> prepare($sql);
 
             $result -> execute();
 
@@ -89,13 +179,13 @@ class Emprunt extends Manager
     }
     public function addEmpruntAdherent ()
     {
-        $db = $this -> dbConnect();
-        $id = $_POST['idAdherent'];
-        if($db)
+        
+        $id = $this -> setId($_POST['idAdherent']);
+        if($this ->getDb())
         {
             $sql = "UPDATE adherent SET nbLivreEmprunt = nbLivreEmprunt +1 WHERE id = $id";
 
-            $result = $db -> prepare($sql);
+            $result = $this ->getDb() -> prepare($sql);
 
             $results = $result -> execute();
 
@@ -108,13 +198,13 @@ class Emprunt extends Manager
     }
     public function subEmpruntAdherent ()
     {
-        $db = $this -> dbConnect();
-        $id = $_GET['id'];
-        if($db)
+        
+        $id = $this -> setId($_GET['id']);
+        if($this ->getDb())
         {
             $sql = "UPDATE adherent AS a , emprunt AS e  SET a.nbLivreEmprunt = a.nbLivreEmprunt -1 WHERE e.id = $id AND  e.idAdherent = a.id";
 
-            $result = $db -> prepare($sql);
+            $result = $this ->getDb() -> prepare($sql);
 
             $results = $result -> execute();
 
@@ -127,13 +217,13 @@ class Emprunt extends Manager
     }
     public function updateEmpruntLivre ($val)
     {
-        $db = $this -> dbConnect();
-        $id = $_GET['id'];
-        if($db)
+        
+       // $id = $this -> setId($_GET['id']);
+        if($this ->getDb())
         {
-        $sql = "UPDATE livre AS l , emprunt AS e SET l.disponible = :dispo WHERE l.id = e.idLivre";
+            $sql = "UPDATE livre AS l , emprunt AS e SET l.disponible = :dispo WHERE l.id = e.idLivre";
 
-            $result = $db ->prepare($sql);
+            $result = $this ->getDb() ->prepare($sql);
             $result ->bindParam(':dispo',$val, PDO::PARAM_BOOL);
             $results = $result ->execute();
 
@@ -144,17 +234,17 @@ class Emprunt extends Manager
             http_response_code(500);
         }
     }
-    public function updateEmprunt ()
+    public function modifyEmprunt ()
     {
-        $db = $this -> dbConnect();
-        $id = $_GET['id'];
-        $idLivre = htmlspecialchars($_POST['idLivre']);
-        $idAdherent = htmlspecialchars($_POST['idAdherent']);
-        $dateEmprunt = htmlspecialchars($_POST['dateEmprunt']);
-        $dateRetourMax = htmlspecialchars($_POST['dateRetourMax']);
-        $dateRetour = empty($_POST['dateRetour']) ? NULL : $_POST['dateRetour']; // marche pas
+        
+        $id = $this -> setId($_GET['id']);
+        $idLivre = $this -> setIdLivre($_POST['idLivre']);
+        $idAdherent = $this -> setIdAdherent($_POST['idAdherent']);
+        $dateEmprunt = $this ->setDateEmprunt($_POST['dateEmprunt']);
+        $dateRetourMax = $this ->setDateRetourMax($_POST['dateRetourMax']);
+        $dateRetour = $this -> setDateRetour($_POST['dateRetour']); 
 
-        if($db)
+        if($this ->getDb())
         {
             $sql = "UPDATE emprunt SET
                     idLivre         = ?,
@@ -164,7 +254,7 @@ class Emprunt extends Manager
                     dateRetour      = ?
                     WHERE id = $id";
             
-            $result = $db -> prepare($sql);
+            $result = $this ->getDb() -> prepare($sql);
 
             $results = $result -> execute([$idLivre, $idAdherent, $dateEmprunt, $dateRetourMax, $dateRetour]);
 
@@ -175,26 +265,22 @@ class Emprunt extends Manager
             http_response_code(500);
         }
     }
-    public function createEmprunt ()
+    public function addEmprunt ()
     {
-        $db = $this -> dbConnect();
+        
 
-        if($db)
+        if($this ->getDb())
         {
-            $idLivre = htmlspecialchars($_POST['idLivre']);
-            $idAdherent = htmlspecialchars($_POST['idAdherent']);
-            //format Date
-            $week = 3;
-            $dateEmprunt = htmlspecialchars($_POST['dateEmprunt']);
-            $dateTime = DateTime::createFromFormat("Y-m-d",$dateEmprunt);
-            $dateTime -> add(DateInterval::createFromDateString($week .'weeks'));
-            $dateRetourMax = $dateTime -> format("Y-m-d");
-            $dateRetour = empty($_POST['dateRetour']) ? NULL : htmlspecialchars($_POST['dateRetour']);
+            $idLivre =  $this -> setIdLivre($_POST['idLivre']);
+            $idAdherent = $this -> setIdAdherent($_POST['idAdherent']);
+            $dateEmprunt = $this ->setDateEmprunt($_POST['dateEmprunt']);
+            $dateRetourMax = $this ->setDateRetourMax($this -> getDateEmprunt());
+            $dateRetour = $this -> setDateRetour($_POST['dateRetour']);
 
             $sql = "INSERT INTO emprunt (idLivre,idAdherent,dateEmprunt,dateRetourMax,dateRetour)
                     VALUES (?, ?, ?, ?, ?)";
 
-            $result = $db ->prepare($sql);
+            $result = $this ->getDb() ->prepare($sql);
 
             $results = $result -> execute([$idLivre, $idAdherent, $dateEmprunt, $dateRetourMax, $dateRetour]);
 
@@ -202,20 +288,19 @@ class Emprunt extends Manager
         }
         else
         {
-            http_response_code(500);
+            throw new Exception("erreur lros de la cr&ation d'un emprunt !");
         }
     }
 
-    public function deleteEmprunt ()
+    public function delEmprunt ()
     {
-        $db = $this -> dbConnect();
-        $id = $_GET['id'];
-        if($db)
+        
+        $id = $this -> setId($_GET['id']);
+        if($this ->getDb())
         {
             $sql = "DELETE FROM emprunt WHERE id =$id";
-            $db ->exec($sql);
-
-            return "deleted success !";
+            $this ->getDb() ->exec($sql);
+            return;
         }
         else
         {
