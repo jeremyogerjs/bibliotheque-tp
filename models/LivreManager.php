@@ -8,7 +8,7 @@ class Livre extends Manager
     private $_auteur;
     private $_disponible;
     private $_idRayon;
-
+    private $_search;
     //setter
     private function setId($id)
     {
@@ -65,7 +65,13 @@ class Livre extends Manager
             return false; 
         }
     }
-
+    private function setSearch($search)
+    {
+        if(isset($search))
+        {
+            return $this -> _search = htmlspecialchars($search);
+        }
+    }
     //methods
     public function getLivre ()
     {
@@ -78,6 +84,25 @@ class Livre extends Manager
             $result = $db ->prepare($sql);
 
             $result -> execute();
+
+            $results = $result ->fetchAll();
+
+            return $results;
+        }
+    }
+    public function searchLivres()
+    {
+        $db = $this -> dbConnect();
+
+
+        if($db)
+        {
+            $search = $this -> setSearch($_POST['search']); 
+            $sql = "SELECT * FROM rayon RIGHT JOIN livre ON livre.idRayon = rayon.id  WHERE livre.titre LIKE ? OR livre.auteur LIKE ?";
+
+            $result = $db ->prepare($sql);
+
+            $result -> execute(["%$search%","%$search%"]);
 
             $results = $result ->fetchAll();
 
@@ -181,7 +206,7 @@ class Livre extends Manager
             http_response_code(500);
         }
     }
-    public function addLivre ()
+    public function createLivre ()
     {
         $db = $this -> dbConnect();
         $titre = $this -> setTitre($_POST['titre']);

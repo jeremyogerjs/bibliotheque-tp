@@ -1,7 +1,7 @@
 <?php ob_start(); ?>
 <div class="container row align-items-middle mx-auto mt-5 justify-content-center">
     <div class="row align-items-middle justify-content-center">
-        <div class="card bg-success col-2 p-5 mx-2 h-75">
+        <div class="card bg-success col-2 p-5 mx-2 h-75 card_home">
             <div class="d-flex flex-column text-center">
                 <a href="index.php?action=create&target=adherent" class="text-decoration-none text-dark">
                     <i class="fas fa-users fa-2x mx-auto"></i>
@@ -9,7 +9,7 @@
                 </a>
             </div>
         </div>
-        <div class="card bg-success col-2 p-5 mx-2 h-75">
+        <div class="card bg-success col-2 p-5 mx-2 h-75 card_home">
             <div class="d-flex flex-column text-center">
                 <a href="index.php?action=create&target=livre" class="text-decoration-none text-dark">
                     <i class="fas fa-book fa-2x mx-auto"></i>
@@ -17,7 +17,7 @@
                 </a>
             </div>
         </div>
-        <div class="card bg-success col-2 p-5 mx-2 h-75">
+        <div class="card bg-success col-2 p-5 mx-2 h-75 card_home">
             <div class="d-flex flex-column text-center">
                 <a href="index.php?action=create&target=emprunt" class="text-decoration-none text-dark">
                     <i class="fas fa-cart-arrow-down fa-2x mx-auto"></i>
@@ -25,7 +25,7 @@
                 </a>
             </div>
         </div>
-        <div class="card bg-success col-2 p-5 mx-2 h-75">
+        <div class="card bg-success col-2 p-5 mx-2 h-75 card_home">
             <div class="d-flex flex-column text-center">
                 <a href="index.php?action=create&target=rayon" class="text-decoration-none text-dark">
                     <i class="fas fa-shapes fa-2x mx-auto"></i>
@@ -35,7 +35,7 @@
         </div>
     </div>
     <div class="row align-items-middle mt-2 justify-content-center">
-        <div class="card bg-info col-2 p-5 mx-2 h-75">
+        <div class="card bg-info col-2 p-5 mx-2 h-75 card_home">
             <div class="d-flex flex-column text-center">
                 <a href="index.php?action=list&target=adherent" class="text-decoration-none text-dark">
                     <i class="fas fa-users fa-2x mx-auto"></i>
@@ -43,7 +43,7 @@
                 </a>
             </div>
         </div>
-        <div class="card bg-info col-2 p-5 mx-2 h-75">
+        <div class="card bg-info col-2 p-5 mx-2 h-75 card_home">
             <div class="d-flex flex-column  text-center">
                 <a href="index.php?action=create&target=livre" class="text-decoration-none text-dark">
                     <i class="fas fa-book fa-2x mx-auto"></i>
@@ -51,7 +51,7 @@
                 </a>
             </div>
         </div>
-        <div class="card bg-info col-2 p-5 mx-2 h-75">
+        <div class="card bg-info col-2 p-5 mx-2 h-75 card_home">
             <div class="d-flex flex-column text-center">
                 <a href="index.php?action=list&target=emprunt" class="text-decoration-none text-dark">
                     <i class="fas fa-cart-arrow-down fa-2x mx-auto"></i>
@@ -59,7 +59,7 @@
                 </a>
             </div>
         </div>
-        <div class="card bg-info col-2 p-5 mx-2 h-75">
+        <div class="card bg-info col-2 p-5 mx-2 h-75 card_home">
             <div class="d-flex flex-column text-center">
                 <a href="index.php?action=list&target=rayon" class="text-decoration-none text-dark">
                     <i class="fas fa-shapes fa-2x mx-auto"></i>

@@ -2,8 +2,8 @@
 
 <div class="text-center my-3 d-flex justify-content-center">
   <button class="btn btn-success me-2"> <a href="index.php?action=create&target=rayon " class="text-white text-decoration-none"> Creer un rayon </a></button>
-  <form class="d-flex">
-    <input class="form-control " type="search" placeholder="Search" aria-label="Search">
+  <form class="d-flex" method="POST" action="index.php?action=search&target=rayon">
+    <input class="form-control " type="search" name="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success" type="submit">Search</button>
   </form>
 </div>

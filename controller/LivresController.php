@@ -25,7 +25,7 @@ class LivresController extends Livre
     {
         if(!empty($_POST))
         {
-            $results = $this -> addLivre();
+            $results = $this -> createLivre();
             header("location:index.php?action=list&target=livre");
         }
         else
@@ -55,5 +55,10 @@ class LivresController extends Livre
             $results = $this -> getSingleLivre();
             require('./views/singles/singleLivre.php');
         }
+    }
+    public function searchLivre()
+    {
+        $results = $this -> searchLivres();
+        require('./views/listes/listeLivre.php');
     }
 }

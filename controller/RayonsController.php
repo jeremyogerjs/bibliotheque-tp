@@ -45,6 +45,12 @@ class RayonController extends Rayon
             require('./views/forms/formRayon.php');
         }
     }
+    public function searchRayon()
+    {
+        $results = $this -> searchRayons();
+
+        require('./views/listes/listeRayon.php');
+    }
     public function deleteRayon ()
     {
         if(isset($_GET['id']) && $_GET['id'] >= 0)

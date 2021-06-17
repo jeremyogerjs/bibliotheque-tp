@@ -34,7 +34,7 @@ if(isset($_GET['action']))
         switch ($_GET['target'])
         {
             case "livre" :
-                // creer requete search dans model + controller
+                $livre -> searchLivre();
                 break;
             case "adherent" :
                 // creer requete search dans model + controller
@@ -43,7 +43,7 @@ if(isset($_GET['action']))
                 $emprunt ->search();
                 break;
             case "rayon" :
-                // creer requete search dans model + controller
+                $rayon -> searchRayon();
                 break;
         }
     }

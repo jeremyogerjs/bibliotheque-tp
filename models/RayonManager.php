@@ -5,7 +5,7 @@ class Rayon extends Manager
 {
     private $_id;
     private $_nom;
-    
+    private $_search;
     //setters
     private function setId ($id)
     {
@@ -29,7 +29,13 @@ class Rayon extends Manager
             return false;
         }
     }
-
+    private function setSearch($search)
+    {
+        if(isset($search))
+        {
+            return $this -> _search = htmlspecialchars($search);
+        }
+    }
     //methods
     public function getAllRayon ()
     {
@@ -54,6 +60,24 @@ class Rayon extends Manager
         else
         {
             http_response_code(500);
+        }
+    }
+    public function searchRayons()
+    {
+        $db = $this -> dbConnect();
+
+        if($db)
+        {
+            $search = $this -> setSearch($_POST['search']);
+            $sql = "SELECT * FROM rayon WHERE rayon.nom LIKE ?";
+
+            $result = $db ->prepare($sql);
+
+            $result -> execute(["%$search%"]);
+
+            $results = $result -> fetchAll();
+
+            return $results;
         }
     }
     public function modifyRayon ()
