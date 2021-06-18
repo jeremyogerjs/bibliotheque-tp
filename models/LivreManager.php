@@ -90,6 +90,22 @@ class Livre extends Manager
             return $results;
         }
     }
+    public function getLivreFiltered ($val)
+    {
+        $db = $this -> dbConnect();
+        if($db)
+        {
+            $sql = "SELECT * FROM rayon RIGHT JOIN livre ON livre.idRayon = rayon.id WHERE livre.disponible = ?";
+
+            $result = $db ->prepare($sql);
+
+            $result -> execute([$val]);
+
+            $results = $result ->fetchAll();
+
+            return $results;
+        }
+    }
     public function searchLivres()
     {
         $db = $this -> dbConnect();
@@ -145,9 +161,9 @@ class Livre extends Manager
         if($db)
         {
             $sql = "DELETE FROM livre WHERE id = $id AND disponible = 1";
-            $db -> exec($sql);
+            $result = $db -> exec($sql);
 
-            echo "deleted success !";
+            return $result;
         }
         else
         {

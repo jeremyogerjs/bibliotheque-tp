@@ -67,6 +67,7 @@ class Emprunt extends Manager
     {
         if(strtotime($dateRetourMax))
         {
+            //set dateretourmax automatique about date emprunt
             $week = 3;
             $dateTime = DateTime::createFromFormat("Y-m-d",$dateRetourMax);
             $dateTime -> add(DateInterval::createFromDateString($week .'weeks'));
@@ -120,7 +121,7 @@ class Emprunt extends Manager
         if($this -> getDb())
         {
             $sql = "SELECT e.dateRetour, e.dateRetourMax,e.dateRetour,l.titre,a.nom,a.prenom,e.id,e.dateEmprunt
-                    FROM emprunt AS e INNER JOIN adherent AS a ON e.idAdherent = a.id INNER JOIN livre AS l ON e.idLivre = l.id WHERE e.dateRetour = 0000-00-00";
+                    FROM emprunt AS e INNER JOIN adherent AS a ON e.idAdherent = a.id INNER JOIN livre AS l ON e.idLivre = l.id WHERE e.dateRetour = 0000-00-00 OR e.dateRetour = NULL";
             $result = $this -> getDb() ->prepare($sql);
 
             $result ->execute();
@@ -254,6 +255,23 @@ class Emprunt extends Manager
         {
             http_response_code(500);
         }
+    }
+    public function validateEmprunt()
+    {
+        $db = $this -> dbConnect();
+        $dateRetour = $this -> setDateRetour($_POST['dateRetour']);
+        $id = $this -> setId($_GET['id']);
+        if($db)
+        {
+            $sql = "UPDATE emprunt AS e SET e.dateRetour = ? WHERE id = ? ";
+            $result = $db -> prepare($sql);
+
+            $results = $result -> execute([$dateRetour,$id]);
+
+            return $results;
+        }
+
+
     }
     public function searchEmprunt()
     {

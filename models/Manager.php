@@ -41,8 +41,6 @@ abstract class Manager
     
             $conn -> setAttribute(PDO::ERRMODE_EXCEPTION,PDO::ATTR_ERRMODE);
             $conn -> setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_ASSOC);
-    
-            echo "connected success";
             return $conn;
         }
         catch(PDOException $e)

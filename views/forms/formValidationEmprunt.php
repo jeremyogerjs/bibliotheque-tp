@@ -1,44 +1,20 @@
 <?php ob_start(); ?>
+<?php $action = "index.php?action=validation&target=emprunt&id=".$_GET['id']; ?>
 <div class="col-5 mx-auto m-5">
-<h4 class="my-3"><?= $_GET['action'] === "create" ? "Ajouter un emprunt" : "Modifier un emprunt" ?></h4>
-    <form action="index.php?action=validation&target=emprunt&id=".$_GET['id']" method="POST" class="p-4 border border-2 rounded">
+<h4 class="my-3"><?= $_GET['action'] === "validation" ? "Retour d'un livre" : "" ?></h4>
+    <form action="<?= $action; ?>" method="POST" class="p-4 border border-2 rounded">
         <div class="mb-3">
-            <select class="form-select" name="idAdherent" aria-label="Default select example" required>
-                <option selected>Selctionner l'adherent</option>
-                <?php foreach($optionsAdherent as $result) : ?>
-                    <option value="<?= $result['id']; ?>"><?= $result['nom']; ?> <?= $result['prenom']; ?> Nb Emprunt Tot : <?= $result['nbLivreEmprunt']; ?> </option>
-
-                <?php endforeach; ?>
-            </select>
-            <?php if ($_GET['action'] === "update") : ?>
-                <div id="adherent help" class="form-text"><?= $results['nom']; ?> <?= $results['prenom']; ?> Nb Emprunt Tot : <?= $results['nbLivreEmprunt']; ?></div>
-            <?php endif; ?>
+            <div id="adherent help" class="form-text">Nom complet emprunteur : <?= $results['nom']; ?> <?= $results['prenom']; ?> Nb Emprunt Tot : <?= $results['nbLivreEmprunt']; ?></div>
         </div>
         <div class="mb-3">
-            <select class="form-select" name="idLivre" aria-label="Default select example" required>
-                <option selected>Selectionner les livres ( disponible ) </option>
-                <?php foreach($optionsLivre as $result) : ?>
-                    <option value="<?= $result['id']; ?>"><?= $result['titre']; ?></option>
-                    
-                <?php endforeach; ?>
-            </select>
-            <?php if ($_GET['action'] === "update") : ?>
-                <div id="livrehelp" class="form-text">Titre actuel : <?= $results['titre']; ?> </div>
-            <?php endif; ?>
+            <div id="livrehelp" class="form-text">Titre du livre : <?= $results['titre']; ?> </div>
         </div>
         <div class="mb-3">
-            <label for="dateEmprunt">Date d'emprunt</label>
-            <input type="date" class="form-control" name="dateEmprunt" id="dateEmprunt" required>
-            <?php if ($_GET['action'] === "update") : ?>
-                <div id="dateEmpruntHelp" class="form-text">Date Emprunt actuel : <?= $results['dateEmprunt']; ?> </div>
-            <?php endif; ?>
+            <div id="dateEmpruntHelp" class="form-text">Date Emprunt : <?= $results['dateEmprunt']; ?> </div>
         </div>
         <div class="mb-3">
-            <label for="dateRetour">Date Retour ( optional )</label>
-            <input type="date" class="form-control" name="dateRetour" id="dateEmprunt">
-            <?php if ($_GET['action'] === "update") : ?>
-                <div id="dateRetourHelp" class="form-text">Date Retour actuel : <?= $results['dateRetour']; ?> </div>
-            <?php endif; ?>
+            <label for="dateRetour">Date Retour</label>
+            <input type="date" class="form-control" name="dateRetour" id="dateEmprunt" required>
         </div>
         <div class="btn-group d-flex justify-content-around">
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -49,4 +25,4 @@
 
 <?php $content = ob_get_clean(); ?>
 
-<?php require('./template.php'); ?>
+<?php require('./views/template.php'); ?>

@@ -16,9 +16,16 @@ class LivresController extends Livre
     {
         if(isset($_GET['id']) && $_GET['id'] >=0 )
         {
-            $this -> delLivre();
-            echo "deleted succes !!";
-            header("location:index.php?action=list&actioned=delete&target=livre&statut=success"); 
+            $result = $this -> delLivre();
+            if($result)
+            {
+                echo "deleted succes !!";
+                header("location:index.php?action=list&actioned=delete&target=livre&statut=success"); 
+            }
+            else
+            {
+                header("location:index.php?action=list&actioned=delete&target=livre&statut=fail"); 
+            }
         }
     }
     public function addLivre ()
@@ -55,6 +62,18 @@ class LivresController extends Livre
             $results = $this -> getSingleLivre();
             require('./views/singles/singleLivre.php');
         }
+    }
+    public function filterLivreDispo()
+    {
+        $results = $this -> getLivreFiltered(true);
+
+        require('./views/listes/listeLivre.php');
+    }
+    public function filterLivreIndispo()
+    {
+        $results = $this -> getLivreFiltered(false);
+
+        require('./views/listes/listeLivre.php');
     }
     public function searchLivre()
     {

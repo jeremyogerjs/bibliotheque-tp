@@ -1,12 +1,10 @@
 <?php ob_start(); ?>
-
 <div class="text-center my-3 d-flex justify-content-center">
   <button class="btn btn-success me-2"><a href="index.php?action=create&target=rayon " class="text-white text-decoration-none"> Créer un rayon </a></button>
   <form class="d-flex" method="POST" action="index.php?action=search&target=rayon">
     <input class="form-control " type="search" name="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success" type="submit">Search</button>
   </form>
-  
 </div>
 <p class="text-muted text-center">Tips : Impossible de supprimer un rayon utilisé</p>
 <div class="col-3 mx-auto">

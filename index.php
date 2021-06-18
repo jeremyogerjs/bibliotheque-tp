@@ -119,9 +119,16 @@ if(isset($_GET['action']))
                 break;
         }
     }
+    else if($_GET['action'] === "filterDispo" && $_GET['target'] === 'livre')
+    {
+        $livre -> filterLivreDispo();
+    }
+    else if($_GET['action'] === "filterIndispo" && $_GET['target'] === 'livre')
+    {
+        $livre -> filterLivreIndispo();
+    }
     else if($_GET['action'] === "archive" && $_GET['target'] === "emprunt")
     {
-        echo"TEST";
         $emprunt -> empruntIndispo();
     }
     else if($_GET['action'] === "filter" && $_GET['target'] === "emprunt")
@@ -130,8 +137,8 @@ if(isset($_GET['action']))
     }
     else if($_GET['action'] === "validation" && $_GET['target'] === "emprunt")
     {
-        
-    }
+        $emprunt -> EmpruntValidation();
+    }   
 }
 else
 {

@@ -75,6 +75,19 @@ class EmpruntController extends Emprunt
             require('./views/forms/formEmprunt.php');
         }
     }
+    public function EmpruntValidation ()
+    {
+        if(!empty($_POST))
+        {
+            $this -> validateEmprunt();
+            header("location:index.php?action=list&target=emprunt&actioned=validated&statut=success");
+        }
+        else
+        {
+            $results = $this -> getSingleEmprunt();
+            require('./views/forms/formValidationEmprunt.php');
+        }
+    }
     public function EmpruntDispo ()
     {
         $results = $this -> getAllEmpruntDispo();
