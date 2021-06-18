@@ -1,14 +1,31 @@
 <?php ob_start(); ?>
-
-
 <div class="text-center my-3 d-flex justify-content-center">
-  <button class="btn btn-success me-2"> <a href="index.php?action=create&target=livre " class="text-white text-decoration-none"> Creer un livre </a></button>
+  <button class="btn btn-success me-2"> <a href="index.php?action=create&target=livre " class="text-white text-decoration-none"> Créer un livre </a></button>
   <form class="d-flex" method="POST" action="index.php?action=search&target=livre">
     <input class="form-control " type="search" name="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success" type="submit">Search</button>
   </form>
 </div>
+<p class="text-muted text-center">Tips : Impossible de supprimer un livre emprunté</p>
 <div class="col-9 mx-auto">
+<?php if(isset($_GET['statut'])) : ?>
+  <?php if($_GET['actioned'] === "list" && $_GET['statut'] === "success") : ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Ajout réussi !</strong> 
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php elseif($_GET['actioned'] === "update" && $_GET['statut'] === "success") : ?>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Modification réussie !</strong> 
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php elseif($_GET['actioned'] === "delete" && $_GET['statut'] === "success") : ?>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Suppression réussie !</strong> 
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+  <?php endif; ?>
+<?php endif; ?>
   <table class="table table-striped table-hover table-success table-bordered ">
     <thead>
       <tr>
@@ -37,7 +54,7 @@
         </tr>
       <?php endforeach; ?>
       <?php else : ?>
-        <p>Aucun Livre !</p>
+        <p class="text-center text-uppercase text-danger">Aucun Livre !</p>
     <?php endif; ?>
     </tbody>
   </table>

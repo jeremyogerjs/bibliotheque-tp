@@ -1,34 +1,7 @@
 <?php ob_start(); ?>
-<?php
-
-function getAction ()
-{
-    if($_GET['action'] === "create")
-    {
-        return "index.php?action=create&target=emprunt";
-    }
-    elseif($_GET['action'] == "update")
-    {
-        return "index.php?action=update&target=emprunt&id=" .$_GET['id'];
-    }
-}
-// echo "<pre>";
-// var_dump($results);
-// echo "</pre>";
-?>
-<div>
-<?php if(isset($results)) : ?>
-    <?php if($results) : ?>
-        <p>Ajout réussi !</p>
-        <?php else : ?>
-        <p>Ajout fail !</p>
-    <?php endif; ?>
-<?php endif; ?>
-
-</div>
 <div class="col-5 mx-auto m-5">
 <h4 class="my-3"><?= $_GET['action'] === "create" ? "Ajouter un emprunt" : "Modifier un emprunt" ?></h4>
-    <form action="<?= getAction(); ?>" method="POST" class="p-4 border border-2 rounded">
+    <form action="index.php?action=validation&target=emprunt&id=".$_GET['id']" method="POST" class="p-4 border border-2 rounded">
         <div class="mb-3">
             <select class="form-select" name="idAdherent" aria-label="Default select example" required>
                 <option selected>Selctionner l'adherent</option>
@@ -75,4 +48,5 @@ function getAction ()
 </div>
 
 <?php $content = ob_get_clean(); ?>
-<?php require('./views/template.php'); ?>
+
+<?php require('./template.php'); ?>

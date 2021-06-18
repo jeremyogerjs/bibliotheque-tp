@@ -145,4 +145,22 @@ class Adherent extends Manager
             http_response_code(500);
         }
     }
+    public function searchAdherent()
+    {
+        $db = $this -> dbConnect();
+
+        $search = $_POST['search'];
+        if($db)
+        {
+            $sql = "SELECT * FROM adherent WHERE nom LIKE ? OR prenom LIKE ?";
+
+            $result = $db ->prepare($sql);
+
+            $result -> execute(["%$search%","%$search%"]);
+
+            $results = $result ->fetchAll();
+
+            return $results;
+        }
+    }
 }

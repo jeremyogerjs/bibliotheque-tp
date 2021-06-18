@@ -120,7 +120,7 @@ class Emprunt extends Manager
         if($this -> getDb())
         {
             $sql = "SELECT e.dateRetour, e.dateRetourMax,e.dateRetour,l.titre,a.nom,a.prenom,e.id,e.dateEmprunt
-                    FROM emprunt AS e INNER JOIN adherent AS a ON e.idAdherent = a.id INNER JOIN livre AS l ON e.idLivre = l.id HAVING l.disponible = true";
+                    FROM emprunt AS e INNER JOIN adherent AS a ON e.idAdherent = a.id INNER JOIN livre AS l ON e.idLivre = l.id WHERE e.dateRetour = 0000-00-00";
             $result = $this -> getDb() ->prepare($sql);
 
             $result ->execute();
@@ -140,7 +140,7 @@ class Emprunt extends Manager
         if($this -> getDb())
         {
             $sql = "SELECT e.dateRetour, e.dateRetourMax,e.dateRetour,l.titre,a.nom,a.prenom,e.id,e.dateEmprunt
-                    FROM emprunt AS e INNER JOIN adherent AS a ON e.idAdherent = a.id INNER JOIN livre AS l ON e.idLivre = l.id HAVING l.disponible = false";
+                    FROM emprunt AS e INNER JOIN adherent AS a ON e.idAdherent = a.id INNER JOIN livre AS l ON e.idLivre = l.id WHERE e.dateRetour > 0000-00-00";
             $result = $this -> getDb() ->prepare($sql);
 
             $result ->execute();
@@ -269,16 +269,38 @@ class Emprunt extends Manager
 
         return $results;
     }
-    public function updateEmpruntLivre ($val)
+    public function updateEmpruntLivreIndispo ($val)
     {
         
-       // $id = $this -> setId($_GET['id']);
+       $id = $this -> setId($_POST['idLivre']);
         if($this ->getDb())
         {
-            $sql = "UPDATE livre AS l , emprunt AS e SET l.disponible = :dispo WHERE l.id = e.idLivre";
+            $sql = "UPDATE livre AS l , emprunt AS e SET l.disponible = :dispo WHERE l.id = :id";
 
             $result = $this ->getDb() ->prepare($sql);
             $result ->bindParam(':dispo',$val, PDO::PARAM_BOOL);
+            $result ->bindParam(':id',$id, PDO::PARAM_INT);
+            $results = $result ->execute();
+
+            return $results;
+        }
+        else
+        {
+            http_response_code(500);
+        }
+    }
+
+    public function updateEmpruntLivreDispo ($val)
+    {
+        
+       $id = $this -> setId($_GET['id']);
+        if($this ->getDb())
+        {
+            $sql = "UPDATE livre AS l , emprunt AS e SET l.disponible = :dispo WHERE e.id = :id AND e.idLivre = l.id";
+
+            $result = $this ->getDb() ->prepare($sql);
+            $result ->bindParam(':dispo',$val, PDO::PARAM_BOOL);
+            $result ->bindParam(':id',$id, PDO::PARAM_INT);
             $results = $result ->execute();
 
             return $results;
@@ -295,7 +317,7 @@ class Emprunt extends Manager
         $idLivre = $this -> setIdLivre($_POST['idLivre']);
         $idAdherent = $this -> setIdAdherent($_POST['idAdherent']);
         $dateEmprunt = $this ->setDateEmprunt($_POST['dateEmprunt']);
-        $dateRetourMax = $this ->setDateRetourMax($_POST['dateRetourMax']);
+        $dateRetourMax = $this ->setDateRetourMax($_POST['dateEmprunt']);
         $dateRetour = $this -> setDateRetour($_POST['dateRetour']); 
 
         if($this ->getDb())

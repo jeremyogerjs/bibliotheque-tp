@@ -1,12 +1,32 @@
 <?php ob_start(); ?>
 <div class="text-center my-3 d-flex justify-content-center">
-  <button class="btn btn-success me-2"><a href="index.php?action=create&target=adherent " class="text-white text-decoration-none">Creer adherent</a></button>
-  <form class="d-flex">
-    <input class="form-control " type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-info me-2"><a href="index.php?action=list&target=adherent " class="text-white text-decoration-none">Tou les adherents</a></button>
+  <button class="btn btn-success me-2"><a href="index.php?action=create&target=adherent " class="text-white text-decoration-none">Créer adherent</a></button>
+  <form class="d-flex" method="POST" action="index.php?action=search&target=adherent">
+    <input class="form-control " name="search" type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success" type="submit">Search</button>
   </form>
 </div>
+  <p class="text-muted text-center">*Impossible de supprimer un adhérent avec au minimum un livre emprunté</p>
 <div class="col-9 mx-auto">
+<?php if(isset($_GET['statut'])) : ?>
+  <?php if($_GET['actioned'] === "list" && $_GET['statut'] === "success") : ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Ajout réussi !</strong> 
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php elseif($_GET['actioned'] === "update" && $_GET['statut'] === "success") : ?>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Modification réussie !</strong> 
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php elseif($_GET['actioned'] === "delete" && $_GET['statut'] === "success") : ?>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Suppression réussie !</strong> 
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+  <?php endif; ?>
+<?php endif; ?>
   <table class="table table-striped table-hover table-success table-bordered">
     <thead>
       <tr>
@@ -32,7 +52,7 @@
         </tr>
       <?php endforeach; ?>
       <?php else : ?>
-        <p>Aucun adhérent</p>
+        <p class="text-center text-uppercase text-danger">Aucun adhérent</p>
     <?php endif; ?>
     </tbody>
   </table>

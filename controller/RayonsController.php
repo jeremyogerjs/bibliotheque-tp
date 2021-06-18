@@ -23,7 +23,7 @@ class RayonController extends Rayon
         if(!empty($_POST))
         {
             $this -> addRayon();
-            header("location:index.php?action=list&target=rayon");
+            header("location:index.php?action=list&target=rayon&actioned=create&statut=success");
         }
         else
         {
@@ -37,7 +37,7 @@ class RayonController extends Rayon
         {
             
             $this -> modifyRayon();
-            header("location:index.php?action=list&target=rayon&id=5");
+            header("location:index.php?action=list&target=rayon&actioned=update&statut=success");
         }
         else
         {
@@ -56,7 +56,7 @@ class RayonController extends Rayon
         if(isset($_GET['id']) && $_GET['id'] >= 0)
         {
             $this -> delRayon();
-            header("location:index.php?action=list&target=rayon");
+            header("location:index.php?action=list&actioned=delete&target=rayon&statut=success");
         }
     }
 }

@@ -18,7 +18,7 @@ class LivresController extends Livre
         {
             $this -> delLivre();
             echo "deleted succes !!";
-            header("location:index.php?action=list&target=livre"); 
+            header("location:index.php?action=list&actioned=delete&target=livre&statut=success"); 
         }
     }
     public function addLivre ()
@@ -26,7 +26,7 @@ class LivresController extends Livre
         if(!empty($_POST))
         {
             $results = $this -> createLivre();
-            header("location:index.php?action=list&target=livre");
+            header("location:index.php?action=list&target=livre&actioned=create&statut=success");
         }
         else
         {
@@ -39,7 +39,7 @@ class LivresController extends Livre
         if(!empty($_POST) && isset($_GET['id']) && $_GET['id'] >= 0)
         {
             $test = $this -> modifyLivre();
-            header("location:index.php?action=list&target=livre");
+            header("location:index.php?action=list&target=livre&actioned=update&statut=success");
         }
         else
         {

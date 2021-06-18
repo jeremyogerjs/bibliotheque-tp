@@ -19,7 +19,7 @@ class AdherentController extends Adherent
             if(!empty($_POST))
             {
                 $this -> createAdherent();
-                header("location:index.php?action=list&target=adherent");
+                header("location:index.php?action=list&target=adherent&actioned=create&statut=success");
             }
             else
             {
@@ -40,7 +40,7 @@ class AdherentController extends Adherent
         if(isset($_GET['id']) && $_GET['id'] >= 0)
         {
             $this -> delAdherent();
-            header("location:index.php?action=list&target=adherent");
+            header("location:index.php?action=list&target=adherent&actioned=delete&statut=success");
 
         }
     }
@@ -51,7 +51,7 @@ class AdherentController extends Adherent
             if(isset($_GET['id']) && $_GET['id'] >= 0)
             {
                 $this -> modifyAdherent();
-                header("location:index.php?action=list&target=adherent");
+                header("location:index.php?action=list&target=adherent&actioned=update&statut=success");
             }
         }
         else
@@ -59,5 +59,12 @@ class AdherentController extends Adherent
             $results = $this -> getSingleAdherent();
             require('./views/forms/formAdherent.php');
         }
+    }
+
+    public function search()
+    {
+        $results = $this -> searchAdherent();
+
+        require('./views/listes/listeAdherent.php');
     }
 }

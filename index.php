@@ -37,7 +37,7 @@ if(isset($_GET['action']))
                 $livre -> searchLivre();
                 break;
             case "adherent" :
-                // creer requete search dans model + controller
+                $adherent -> search();
                 break;
             case "emprunt" : 
                 $emprunt ->search();
@@ -118,6 +118,19 @@ if(isset($_GET['action']))
                 $adherent -> singleAdherent();
                 break;
         }
+    }
+    else if($_GET['action'] === "archive" && $_GET['target'] === "emprunt")
+    {
+        echo"TEST";
+        $emprunt -> empruntIndispo();
+    }
+    else if($_GET['action'] === "filter" && $_GET['target'] === "emprunt")
+    {
+        $emprunt -> EmpruntDispo();
+    }
+    else if($_GET['action'] === "validation" && $_GET['target'] === "emprunt")
+    {
+        
     }
 }
 else

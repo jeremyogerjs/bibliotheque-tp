@@ -34,8 +34,8 @@ class EmpruntController extends Emprunt
             if($results)
             {
                 $this -> addEmpruntAdherent();
-                $this -> updateEmpruntLivre(false);
-                header("location:index.php?action=list&target=emprunt");
+                $this -> updateEmpruntLivreIndispo(false);
+                header("location:index.php?action=list&target=emprunt&actioned=create&statut=success");
             }
             else
             {
@@ -54,7 +54,17 @@ class EmpruntController extends Emprunt
         if(!empty($_POST))
         {
             $results = $this -> modifyEmprunt ();
-            header("location:index.php?action=list&target=emprunt");
+            if($results)
+            {
+                header("location:index.php?action=list&target=emprunt&actioned=update&statut=success");
+            }
+            else
+            {
+                $optionsAdherent = $this -> getEmpruntAdherent();
+                $optionsLivre = $this -> getEmpruntLivre();
+                $results = $this -> getSingleEmprunt();
+                require('./views/forms/formEmprunt.php');
+            }
 
         }
         else
@@ -65,14 +75,27 @@ class EmpruntController extends Emprunt
             require('./views/forms/formEmprunt.php');
         }
     }
+    public function EmpruntDispo ()
+    {
+        $results = $this -> getAllEmpruntDispo();
+
+        require('./views/listes/listeEmprunt.php');
+
+    }
+    public function empruntIndispo ()
+    {
+        $results = $this -> getAllEmpruntIndispo();
+
+        require('./views/listes/listeEmprunt.php');
+
+    }
     public function deleteEmprunt()
     {
-
-            $this -> subEmpruntAdherent();
-            $this -> updateEmpruntLivre(true);
-            $this -> delEmprunt();
-            header("location:index.php?action=list&target=emprunt");
+        $this -> delEmprunt();
+        $this -> subEmpruntAdherent();
+        $this -> updateEmpruntLivreDispo(true);
         
+        header("location:index.php?action=list&target=emprunt&actioned=delete&statut=success");
     }
     public function search()
     {
