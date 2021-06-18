@@ -19,11 +19,18 @@
         <strong>Modification réussie !</strong> 
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
-    <?php elseif($_GET['actioned'] === "delete" && $_GET['statut'] === "success") : ?>
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Suppression réussie !</strong> 
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
+    <?php elseif($_GET['actioned'] === "delete") : ?>
+      <?php if($_GET['statut'] === "success") : ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Suppression réussie !</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <?php else :  ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Suppression echoué !</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <?php endif;  ?>
   <?php endif; ?>
 <?php endif; ?>
   <table class="table table-striped table-hover table-success table-bordered">

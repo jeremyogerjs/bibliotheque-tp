@@ -1,6 +1,7 @@
 <?php ob_start(); ?>
 <div class="text-center my-3 d-flex justify-content-center">
   <button class="btn btn-success me-2"> <a href="index.php?action=create&target=emprunt" class="text-white text-decoration-none"> Créer un emprunt </a></button>
+  <button class="btn btn-info me-2"> <a href="index.php?action=list&target=emprunt" class="text-white text-decoration-none">Tous les emprunts</a></button>
   <button class="btn btn-info me-2"> <a href="index.php?action=filter&target=emprunt" class="text-white text-decoration-none">Emprunt en cours</a></button>
   <button class="btn btn-info me-2"> <a href="index.php?action=archive&target=emprunt" class="text-white text-decoration-none">Archive Emprunt</a></button>
   <form class="d-flex" method="POST" action="index.php?action=search&target=emprunt">

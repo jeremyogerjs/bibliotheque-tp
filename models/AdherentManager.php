@@ -134,7 +134,7 @@ class Adherent extends Manager
         $id = $this -> setId($_GET['id']);
         if($db)
         {
-            $sql = "DELETE FROM adherent WHERE id = $id";
+            $sql = "DELETE FROM adherent WHERE id = $id AND nbLivreEmprunt = 0";
 
             $result = $db -> exec($sql);
 

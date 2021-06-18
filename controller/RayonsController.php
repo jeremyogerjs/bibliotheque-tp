@@ -56,7 +56,7 @@ class RayonController extends Rayon
         if(isset($_GET['id']) && $_GET['id'] >= 0)
         {
             $result = $this -> delRayon();
-            if($result)
+            if($result > 0)
             {
                 header("location:index.php?action=list&actioned=delete&target=rayon&statut=success");
             }

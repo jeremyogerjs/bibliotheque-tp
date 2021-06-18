@@ -121,7 +121,7 @@ class Rayon extends Manager
         $id = $this -> setId($_GET['id']);
         if($db)
         {
-            $sql = "DELETE FROM rayon WHERE id = $id";
+            $sql = "DELETE rayon FROM rayon INNER JOIN livre ON rayon.id = livre.idRayon WHERE rayon.id = $id  AND livre.idRayon != $id";
 
             $result = $db -> exec($sql);
             return $result;

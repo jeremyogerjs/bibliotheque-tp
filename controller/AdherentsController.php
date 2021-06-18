@@ -39,8 +39,15 @@ class AdherentController extends Adherent
     {
         if(isset($_GET['id']) && $_GET['id'] >= 0)
         {
-            $this -> delAdherent();
-            header("location:index.php?action=list&target=adherent&actioned=delete&statut=success");
+            $result = $this -> delAdherent();
+            if($result > 0 )
+            {
+                header("location:index.php?action=list&target=adherent&actioned=delete&statut=success");
+            }
+            else
+            {
+                header("location:index.php?action=list&target=adherent&actioned=delete&statut=fail");
+            }
 
         }
     }
