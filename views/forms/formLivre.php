@@ -1,6 +1,5 @@
 <?php ob_start(); ?>
 <?php
-var_dump($_POST);
 function getAction ()
 {
     if($_GET['action'] === "create")

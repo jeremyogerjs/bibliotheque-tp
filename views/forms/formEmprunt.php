@@ -12,20 +12,7 @@ function getAction ()
         return "index.php?action=update&target=emprunt&id=" .$_GET['id'];
     }
 }
-// echo "<pre>";
-// var_dump($results);
-// echo "</pre>";
 ?>
-<div>
-<?php if(isset($results)) : ?>
-    <?php if($results) : ?>
-        <p>Ajout réussi !</p>
-        <?php else : ?>
-        <p>Ajout fail !</p>
-    <?php endif; ?>
-<?php endif; ?>
-
-</div>
 <div class="col-5 mx-auto m-5">
 <h4 class="my-3"><?= $_GET['action'] === "create" ? "Ajouter un emprunt" : "Modifier un emprunt" ?></h4>
     <form action="<?= getAction(); ?>" method="POST" class="p-4 border border-2 rounded">
