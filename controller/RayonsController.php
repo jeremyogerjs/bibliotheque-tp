@@ -36,8 +36,15 @@ class RayonController extends Rayon
         if(!empty($_POST))
         {
             
-            $this -> modifyRayon();
-            header("location:index.php?action=list&target=rayon&actioned=update&statut=success");
+            $result = $this -> modifyRayon();
+            if($result)
+            {
+                header("location:index.php?action=list&target=rayon&actioned=update&statut=success");
+            }
+            else
+            {
+                header("location:index.php?action=list&target=rayon&actioned=update&statut=fail");
+            }
         }
         else
         {
@@ -62,9 +69,14 @@ class RayonController extends Rayon
             }
             else
             {
+                throw new Exception("Impossible de supprimer ce rayon !");
                 header("location:index.php?action=list&actioned=delete&target=rayon&statut=fail");
 
             }
+        }
+        else
+        {
+            http_response_code(404);
         }
     }
 }

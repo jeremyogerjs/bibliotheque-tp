@@ -31,10 +31,9 @@ function getAction ()
     <form action="<?= getAction(); ?>" method="POST" class="p-4 border border-2 rounded">
         <div class="mb-3">
             <select class="form-select" name="idAdherent" aria-label="Default select example" required>
-                <option selected>Selctionner l'adherent</option>
+                <option value="" selected>Selctionner l'adherent</option>
                 <?php foreach($optionsAdherent as $result) : ?>
                     <option value="<?= $result['id']; ?>"><?= $result['nom']; ?> <?= $result['prenom']; ?> Nb Emprunt Tot : <?= $result['nbLivreEmprunt']; ?> </option>
-
                 <?php endforeach; ?>
             </select>
             <?php if ($_GET['action'] === "update") : ?>
@@ -43,7 +42,7 @@ function getAction ()
         </div>
         <div class="mb-3">
             <select class="form-select" name="idLivre" aria-label="Default select example" required>
-                <option selected>Selectionner les livres ( disponible ) </option>
+                <option value="" selected>Selectionner les livres ( disponible ) </option>
                 <?php foreach($optionsLivre as $result) : ?>
                     <option value="<?= $result['id']; ?>"><?= $result['titre']; ?></option>
                     

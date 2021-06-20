@@ -1,5 +1,4 @@
 <?php ob_start(); ?>
-<?php var_dump($result);  ?>
 <div class="text-center my-3 d-flex justify-content-center">
   <button class="btn btn-success me-2"><a href="index.php?action=create&target=rayon " class="text-white text-decoration-none"> Créer un rayon </a></button>
   <form class="d-flex" method="POST" action="index.php?action=search&target=rayon">

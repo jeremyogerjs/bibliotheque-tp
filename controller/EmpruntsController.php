@@ -80,6 +80,8 @@ class EmpruntController extends Emprunt
         if(!empty($_POST))
         {
             $this -> validateEmprunt();
+            $this -> subEmpruntAdherent();
+            $this -> updateEmpruntLivreDispo(true);
             header("location:index.php?action=list&target=emprunt&actioned=validated&statut=success");
         }
         else
