@@ -1,7 +1,7 @@
 <?php
 
 $config = array(
-    'serverName'  => 'localhost',
+    'serverName'    => 'localhost',
     'userName'      => 'root',
     'password'      => '',
     'dbName'        => 'bibliotheque'

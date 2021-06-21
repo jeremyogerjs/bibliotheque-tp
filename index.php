@@ -1,14 +1,14 @@
-
-
 <?php
-require('./controller/EmpruntsController.php');
-require('./controller/AdherentsController.php');
-require('./controller/RayonsController.php');
-require('./controller/LivresController.php');
+require_once('./controller/UserController.php');
+require_once('./controller/EmpruntsController.php');
+require_once('./controller/AdherentsController.php');
+require_once('./controller/RayonsController.php');
+require_once('./controller/LivresController.php');
 $emprunt = new EmpruntController();
 $livre = new LivresController();
 $rayon = new RayonController();
 $adherent = new AdherentController();
+$login = new UserControllers();
 if(isset($_GET['action']))
 {
     if($_GET['action'] === 'list')
@@ -139,6 +139,14 @@ if(isset($_GET['action']))
     {
         $emprunt -> EmpruntValidation();
     }   
+    else if($_GET['action'] === 'auth')
+    {
+        $login -> connection();
+    }
+    else if($_GET['action'] === 'signin')
+    {
+        $login -> inscription();
+    }
 }
 else
 {

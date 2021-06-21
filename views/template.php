@@ -17,6 +17,13 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php?action=auth">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php?action=signin">Signin</a>
+                        </li>
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="index.php?action=list&target=livre">Liste catalogue</a>
