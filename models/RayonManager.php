@@ -121,7 +121,7 @@ class Rayon extends Manager
         $id = $this -> setId($_GET['id']);
         if($db)
         {
-            $sql = "DELETE FROM rayon WHERE rayon.id = $id"; //sort une exception si le rayon est utilisé.
+            $sql = "DELETE FROM rayon WHERE id = $id"; //sort une exception si le rayon est utilisé.
 
             $result = $db -> exec($sql);
             return $result;

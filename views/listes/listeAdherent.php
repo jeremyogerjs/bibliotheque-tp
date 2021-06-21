@@ -1,4 +1,5 @@
 <?php ob_start(); ?>
+<?php var_dump($_SESSION)?>
 <div class="text-center my-3 d-flex justify-content-center">
   <button class="btn btn-success me-2"><a href="index.php?action=create&target=adherent " class="text-white text-decoration-none">Créer adherent</a></button>
   <form class="d-flex" method="POST" action="index.php?action=search&target=adherent">

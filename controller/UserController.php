@@ -9,17 +9,27 @@ class UserControllers extends User
         if(!empty($_POST))
         {
             $result = $this -> login();
-            if($result > 0)
+            if($result)
             {
+                //marche pas !!!!!
+                $_SESSION['user'] = [
+                    'userName' => $result['userName'],
+                    'password' => $result['pass'] 
+                ];
+                $error = false;
+                $msg = 'Connecté avec success !!!';
                 require('./views/forms/formAuth.php');
             }
             else
             {
-                echo 'Mauvais login ou mot de passe';
+                $error = true;
+                $msg = 'Mauvais login ou mot de passe';
+                require('./views/forms/formAuth.php');
             }
         }
         else
         {
+            $error = false;
             require('./views/forms/formAuth.php');
         }
     }
@@ -28,17 +38,22 @@ class UserControllers extends User
         if(!empty($_POST))
         {
             $result = $this -> signIn();
-            if($result > 0)
+            if($result)
             {
-                echo "inscription reussi !!!";
+                $error = false;
+                $msg = 'Incrit avec success !!!';
+                require('./views/forms/formAuth.php');
             }
             else
             {
-                echo"une erreur est survenue ";
+                $error = true;
+                $msg = 'Erreur champ invalide !';
+                require('./views/forms/formAuth.php');
             }
         }
         else
         {
+            $error = false;
             require('./views/forms/formAuth.php');
         }
     }

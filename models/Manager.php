@@ -1,6 +1,4 @@
 <?php
-
-
 abstract class Manager
 {
     protected $_serverName;
