@@ -1,4 +1,3 @@
-<?php session_start();?>
 <?php ob_start(); ?>
 <div class="d-flex flex-column">
   <div class="my-3 d-flex justify-content-center">
@@ -14,8 +13,7 @@
     <button class="btn btn-info my-1" type="button"><a href="index.php?action=list&target=livre" class="text-dark text-decoration-none">Tous les livres</a></button>
   </div>
 </div>
-<span>HELLO, comment vas-tu ? <?= $_SESSION['userName'];?></span>
-<p class="text-muted text-center">Tips : Impossible de supprimer un livre emprunté</p>
+<p class="text-muted text-center">Tips : *Impossible de supprimer un livre emprunté</p>
 <div class="col-9 mx-auto">
 <?php if(isset($_GET['statut'])) : ?>
   <?php if($_GET['actioned'] === "list" && $_GET['statut'] === "success") : ?>

@@ -32,7 +32,6 @@ function getAction ()
                 <option value="" selected>Selectionner les livres ( disponible ) </option>
                 <?php foreach($optionsLivre as $result) : ?>
                     <option value="<?= $result['id']; ?>"><?= $result['titre']; ?></option>
-                    
                 <?php endforeach; ?>
             </select>
             <?php if ($_GET['action'] === "update") : ?>

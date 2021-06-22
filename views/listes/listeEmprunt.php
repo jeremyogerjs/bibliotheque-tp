@@ -9,7 +9,7 @@
     <button class="btn btn-outline-success" type="submit">Search</button>
   </form>
 </div>
-<p class="text-muted text-center">Tips : Supprimer un emprunt est définitif</p>
+<p class="text-muted text-center">Tips : *Supprimer un emprunt est définitif</p>
 <div class="col-9 mx-auto">
 <?php if(isset($_GET['statut'])) : ?>
   <?php if($_GET['actioned'] === "list" && $_GET['statut'] === "success") : ?>

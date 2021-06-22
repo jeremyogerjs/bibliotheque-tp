@@ -1,5 +1,4 @@
 <?php ob_start(); ?>
-<?php var_dump($results) ?>
 <div class="text-center my-3 d-flex justify-content-center">
   <button class="btn btn-success me-2"><a href="index.php?action=create&target=rayon " class="text-white text-decoration-none"> Créer un rayon </a></button>
   <form class="d-flex" method="POST" action="index.php?action=search&target=rayon">
@@ -7,7 +6,7 @@
     <button class="btn btn-outline-success" type="submit">Search</button>
   </form>
 </div>
-<p class="text-muted text-center">Tips : Impossible de supprimer un rayon utilisé</p>
+<p class="text-muted text-center">Tips : *Impossible de supprimer un rayon utilisé</p>
 <div class="col-3 mx-auto">
 <?php if(isset($_GET['statut'])) : ?>
   <?php if($_GET['actioned'] === "list" && $_GET['statut'] === "success") : ?>
@@ -50,7 +49,9 @@
             <td class="actions">
               <a href="index.php?action=single&target=<?= $_GET['target']; ?>&id=<?= $result['id'] ?>" class="user text-info"> <i class="fas fa-user-alt"></i></a>
               <a href="index.php?action=update&target=<?= $_GET['target']; ?>&id=<?= $result['id'] ?>" class="edit text-success mx-2"><i class="fas fa-edit"></i></a>
-              <a href="index.php?action=delete&target=<?= $_GET['target']; ?>&id=<?= $result['id'] ?>" class="trash text-danger"><i class="fas fa-trash"></i></a>
+              <?php if($result['id'] != $result['idRayon']) : ?>
+                <a href="index.php?action=delete&target=<?= $_GET['target']; ?>&id=<?= $result['id'] ?>" class="trash text-danger"><i class="fas fa-trash"></i></a>
+              <?php endif; ?>
             </td>
         </tr>
       <?php endforeach; ?>

@@ -43,7 +43,13 @@ class Rayon extends Manager
 
         if($db)
         {
-            return $this -> getAll("rayon",$db);
+            $sql = "SELECT rayon.id,livre.idRayon,rayon.nom FROM rayon LEFT JOIN livre ON livre.idRayon = rayon.id";
+
+            $result = $db -> prepare($sql);
+            $result ->execute();
+
+            $results = $result ->fetchAll();
+            return $results;
         }
         else
         {
