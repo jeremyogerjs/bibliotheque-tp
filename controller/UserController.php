@@ -12,10 +12,8 @@ class UserControllers extends User
             if($result)
             {
                 //marche pas !!!!!
-                $_SESSION['user'] = [
-                    'userName' => $result['userName'],
-                    'password' => $result['pass'] 
-                ];
+
+                
                 $error = false;
                 $msg = 'Connecté avec success !!!';
                 require('./views/forms/formAuth.php');

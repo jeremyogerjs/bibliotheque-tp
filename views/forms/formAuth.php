@@ -1,5 +1,9 @@
+<?php ob_start(); ?>
+<?php session_start();?>
+<?php var_dump($_SESSION); 
 
-<?php ob_start() ?>
+
+?>
 <?php if($_GET['action'] === 'auth') : ?>
 <div class="col-3 mx-auto my-5">
     <h5>Login</h5>
@@ -10,6 +14,7 @@
         <label for="userName">Password</label>
         <input class="form-control <?= $error ? 'is-invalid' : '' ?>"  type="password" name="password">`
         <div class="text-helper <?= $error ? "text-danger" : "text-success"  ?>"><?= isset($msg) ? $msg : ''; ?></div>
+        <div class="text-helper">Pas de compte ? <a href="index.php?action=signin">S'inscrire</a></div>
         <input class="btn btn-success my-2" type="submit" value="Connexion" required>
     </form>
 </div>
@@ -22,6 +27,7 @@
         <label for="userName">Password</label>
         <input class="form-control <?= $error ? 'is-invalid' : '' ?>" type="password" name="password">
         <div class="text-helper <?= $error ? "text-danger" : "text-success"  ?>"><?= isset($msg) ? $msg : ''; ?></div>
+        <div class="text-helper">Deja un compte ? <a href="index.php?action=auth">Se connecter</a></div>
         <input class="btn btn-success my-2" type="submit" value="S'inscrire" required>
     </form>
 </div>

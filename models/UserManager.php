@@ -13,7 +13,7 @@ class User extends Manager
     }
     private function setPass($password)
     {
-        return $this -> _pass = $password;
+        return $this -> _pass = md5($password);
     }
     public function login()
     {
@@ -23,8 +23,8 @@ class User extends Manager
         {
             $userName = $this -> setUser($_POST['userName']);
             $password = $this -> setPass($_POST['password']);
-            
-            $sql = "SELECT * FROM user WHERE userName = '$userName' AND pass = '$password'";
+
+            $sql = "SELECT * FROM user WHERE userName = '$userName' AND password = '$password'";
     
             $result = $db -> prepare($sql);
             $result -> execute();
@@ -38,10 +38,12 @@ class User extends Manager
 
         if($db)
         {
+            $_SESSION['connected'] = true;
+            $_SESSION['userName'] = $this -> setUser($_POST['userName']);
             $userName = $this -> setUser($_POST['userName']);
             $password = $this -> setPass($_POST['password']);
 
-            $sql = "INSERT INTO user (userName,pass) VALUES ( ?,?)";
+            $sql = "INSERT INTO user (userName,password) VALUES (?,?)";
             $result = $db -> prepare($sql);
 
             $results = $result -> execute([$userName,$password]);
