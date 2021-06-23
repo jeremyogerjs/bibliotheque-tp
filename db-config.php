@@ -2,7 +2,7 @@
 
 $config = array(
     'serverName'    => 'localhost',
-    'userName'      => 'root',
-    'password'      => '',
-    'dbName'        => 'bibliotheque'
+    'userName'      => 'jeremy-pdo',
+    'password'      => 'DevWeb',
+    'dbName'        => 'jeremypdo'
 );

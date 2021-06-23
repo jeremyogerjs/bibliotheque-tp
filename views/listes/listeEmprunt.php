@@ -32,6 +32,11 @@
         <strong>L'emprunt a bien été mis a jour !</strong> 
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
+      <?php elseif($_GET['actioned'] === "create" && $_GET['statut'] === "success") : ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>L'emprunt a bien été creer !</strong> 
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
   <?php endif; ?>
 <?php endif; ?>
   <table class="table table-striped table-hover table-success">

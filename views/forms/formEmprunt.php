@@ -1,6 +1,5 @@
 <?php ob_start(); ?>
 <?php
-
 function getAction ()
 {
     if($_GET['action'] === "create")
@@ -18,7 +17,11 @@ function getAction ()
     <form action="<?= getAction(); ?>" method="POST" class="p-4 border border-2 rounded">
         <div class="mb-3">
             <select class="form-select" name="idAdherent" aria-label="Default select example" required>
-                <option value="" selected>Selctionner l'adherent</option>
+            <?php if($_GET['action'] === 'create') : ?>
+                <option value="" selected>Selectionner l'adherent</option>
+                <?php else :?>
+                <option value="<?= $results['id']; ?>" selected>Selectionner l'adherent</option>
+                <?php endif; ?>
                 <?php foreach($optionsAdherent as $result) : ?>
                     <option value="<?= $result['id']; ?>"><?= $result['nom']; ?> <?= $result['prenom']; ?> Nb Emprunt Tot : <?= $result['nbLivreEmprunt']; ?> </option>
                 <?php endforeach; ?>
@@ -29,18 +32,22 @@ function getAction ()
         </div>
         <div class="mb-3">
             <select class="form-select" name="idLivre" aria-label="Default select example" required>
-                <option value="" selected>Selectionner les livres ( disponible ) </option>
+                <?php if($_GET['action'] === 'create') : ?>
+                    <option value="" selected>Selectionner les livres ( disponible ) </option>
+                <?php else : ?>
+                    <option value="<?= $results['id'] ?>" selected><?= $results['titre']; ?> </option>
+                <?php endif;?>
                 <?php foreach($optionsLivre as $result) : ?>
                     <option value="<?= $result['id']; ?>"><?= $result['titre']; ?></option>
                 <?php endforeach; ?>
             </select>
-            <?php if ($_GET['action'] === "update") : ?>
+            <?php if($_GET['action'] === "update") : ?>
                 <div id="livrehelp" class="form-text">Titre actuel : <?= $results['titre']; ?> </div>
             <?php endif; ?>
         </div>
         <div class="mb-3">
             <label for="dateEmprunt">Date d'emprunt</label>
-            <input type="date" class="form-control" name="dateEmprunt" id="dateEmprunt" required>
+            <input type="date" value="<?= $_GET['action'] === 'update' ? $results['dateEmprunt'] : ""; ?>" class="form-control" name="dateEmprunt" id="dateEmprunt" required>
             <?php if ($_GET['action'] === "update") : ?>
                 <div id="dateEmpruntHelp" class="form-text">Date Emprunt actuel : <?= $results['dateEmprunt']; ?> </div>
             <?php endif; ?>

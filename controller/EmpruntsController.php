@@ -60,16 +60,15 @@ class EmpruntController extends Emprunt
             }
             else
             {
-                $optionsAdherent = $this -> getEmpruntAdherent();
+                $optionsAdherent = $this -> getAllAdherent();
                 $optionsLivre = $this -> getEmpruntLivre();
                 $results = $this -> getSingleEmprunt();
                 require('./views/forms/formEmprunt.php');
             }
-
         }
         else
         {
-            $optionsAdherent = $this -> getEmpruntAdherent();
+            $optionsAdherent = $this -> getAllAdherent();
             $optionsLivre = $this -> getEmpruntLivre();
             $results = $this -> getSingleEmprunt();
             require('./views/forms/formEmprunt.php');

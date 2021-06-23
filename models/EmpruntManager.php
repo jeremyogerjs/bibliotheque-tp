@@ -175,6 +175,26 @@ class Emprunt extends Manager
             http_response_code(500);
         }
     }
+    public function getAllAdherent ()
+    {
+        
+        if($this ->getDb())
+        {
+            $sql = "SELECT * FROM adherent";
+
+            $result = $this ->getDb() -> prepare($sql);
+    
+            $result -> execute();
+
+            $results = $result ->fetchAll();
+
+            return $results;
+        }
+        else
+        {
+            http_response_code(500);
+        }
+    }
     public function getEmpruntLivre ()
     {
         

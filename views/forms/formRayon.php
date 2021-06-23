@@ -1,6 +1,5 @@
 <?php ob_start(); ?>
 <?php
-
     function getAction ()
     {
         if($_GET['action'] === "create")
@@ -13,7 +12,8 @@
         }
     }
 ?>
-<div class="col-2 mx-auto">
+<div class="col-2 mx-auto m-5">
+<h4 class="my-3"><?= $_GET['action'] === "create" ? "Ajouter un rayon" : "Modifier un rayon" ?></h4>
     <form action="<?= getAction() ?>" method="POST" class="p-4 border border-2 rounded">
     
         <label for="nom">Nom :</label>

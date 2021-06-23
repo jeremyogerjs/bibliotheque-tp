@@ -13,7 +13,7 @@ function getAction ()
 };
 
 ?>
-<div class="col-4 mx-auto">
+<div class="col-4 mx-auto m-5">
     <form action="<?= getAction() ?>" method="POST" class="p-4 border border-2 rounded">
     <h2><?= $_GET['action'] === "create" ? "Ajouter livre" : "Modifier livre"; ?> </h2>
         <div class="mb-3">
