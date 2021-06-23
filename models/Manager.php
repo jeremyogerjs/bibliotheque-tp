@@ -35,7 +35,7 @@ abstract class Manager
     {
         try{
 
-            $conn = new PDO("mysql:host=".$this -> _serverName .";dbname=".$this -> _dbName,$this -> _userName, $this -> _password);
+            $conn = new PDO("mysql:host=".$this -> _serverName.";dbname=".$this -> _dbName,$this -> _userName, $this -> _password);
     
             $conn -> setAttribute(PDO::ERRMODE_EXCEPTION,PDO::ATTR_ERRMODE);
             $conn -> setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_ASSOC);
