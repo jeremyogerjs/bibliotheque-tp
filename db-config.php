@@ -1,8 +1,8 @@
 <?php
 
 $config = array(
-    'serverName'    => 'localhost',
+    'serverName'    => '127.0.0.1',
     'userName'      => 'jeremy-pdo',
-    'password'      => 'DevWeb',
-    'dbName'        => 'jeremypdo'
+    'password'      => 'DevWeb2021',
+    'dbName'        => 'jeremy-pdo'
 );
